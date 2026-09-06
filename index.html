@@ -1,298 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#111111">
-    <meta name="description" content="Bike EMI Calculator">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="Bike EMI Calculator">
 
-    <link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json">
 
-    <title>Bike EMI Calculator</title>
+<title>Bike EMI Calculator</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f1f3f6;
-            color: #111;
-            min-height: 100vh;
-        }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f3f6;
+    color: #111;
+    min-height: 100vh;
+}
 
-        .app {
-            width: 100%;
-            max-width: 480px;
-            margin: auto;
-            min-height: 100vh;
-            padding: 18px;
-        }
+.app {
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+    min-height: 100vh;
+    padding: 15px;
+}
 
-        .header {
-            text-align: center;
-            padding: 20px 0 22px;
-        }
+/* TOP BAR */
+.topbar {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
 
-        .logo {
-            width: 64px;
-            height: 64px;
-            margin: auto;
-            border-radius: 18px;
-            background: #111;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
+.menu-btn {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 12px;
+    background: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
 
-        .header h1 {
-            margin-top: 14px;
-            font-size: 27px;
-        }
+/* HEADER */
+.header {
+    text-align: center;
+    padding: 8px 0 22px;
+}
 
-        .header p {
-            margin-top: 6px;
-            color: #777;
-            font-size: 14px;
-        }
+.logo {
+    width: 64px;
+    height: 64px;
+    margin: auto;
+    border-radius: 18px;
+    background: #111;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
 
-        .card {
-            background: white;
-            border-radius: 22px;
-            padding: 22px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        }
+.header h1 {
+    margin-top: 13px;
+    font-size: 27px;
+}
 
-        .field {
-            margin-bottom: 18px;
-        }
+.header p {
+    margin-top: 6px;
+    color: #777;
+    font-size: 14px;
+}
 
-        .field label {
-            display: block;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+/* CARD */
+.card {
+    background: white;
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
 
-        .input-wrap {
-            position: relative;
-        }
+.field {
+    margin-bottom: 18px;
+}
 
-        .rupee {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            font-weight: bold;
-            color: #555;
-        }
+.field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
 
-        input {
-            width: 100%;
-            height: 54px;
-            border: 1.5px solid #d9dce1;
-            border-radius: 12px;
-            padding: 0 15px 0 40px;
-            font-size: 18px;
-            font-weight: 600;
-            outline: none;
-            background: #fff;
-        }
+.input-wrap {
+    position: relative;
+}
 
-        input:focus {
-            border-color: #111;
-        }
+.rupee {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+}
 
-        .tenure-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+input {
+    width: 100%;
+    height: 54px;
+    border: 1.5px solid #d9dce1;
+    border-radius: 12px;
+    padding: 0 15px 0 40px;
+    font-size: 18px;
+    font-weight: 600;
+    outline: none;
+    background: #fff;
+}
 
-        .tenure-wrap input {
-            padding-left: 15px;
-        }
+input:focus {
+    border-color: #111;
+}
 
-        .months {
-            min-width: 82px;
-            height: 54px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f1f2f4;
-            border-radius: 12px;
-            font-weight: 700;
-        }
+/* DIFFERENCE */
+.difference {
+    margin-top: -5px;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f5f6f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #666;
+}
 
-        .hypo {
-            height: 54px;
-            border-radius: 12px;
-            background: #f7f7f8;
-            border: 1.5px solid #e1e2e5;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-        }
+.difference strong {
+    color: #111;
+    font-size: 15px;
+}
 
-        .hypo span:first-child {
-            font-weight: 700;
-        }
+/* HYPO */
+.hypo {
+    height: 54px;
+    border-radius: 12px;
+    background: #f7f7f8;
+    border: 1.5px solid #e1e2e5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
 
-        .hypo span:last-child {
-            font-size: 18px;
-            font-weight: 800;
-        }
+.hypo span:first-child {
+    font-weight: 700;
+}
 
-        .difference {
-            margin-top: -5px;
-            margin-bottom: 18px;
-            padding: 12px 14px;
-            border-radius: 10px;
-            background: #f5f6f7;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: #666;
-        }
+.hypo span:last-child {
+    font-size: 18px;
+    font-weight: 800;
+}
 
-        .difference strong {
-            color: #111;
-            font-size: 15px;
-        }
+/* BUTTON */
+.calculate {
+    width: 100%;
+    height: 55px;
+    border: none;
+    border-radius: 13px;
+    background: #111;
+    color: white;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+}
 
-        .calculate {
-            width: 100%;
-            height: 55px;
-            border: none;
-            border-radius: 13px;
-            background: #111;
-            color: white;
-            font-size: 17px;
-            font-weight: 800;
-            cursor: pointer;
-        }
+.calculate:active {
+    transform: scale(.98);
+}
 
-        .calculate:active {
-            transform: scale(0.98);
-        }
+.reset {
+    width: 100%;
+    margin-top: 10px;
+    height: 45px;
+    border: none;
+    background: transparent;
+    color: #555;
+    font-weight: 700;
+    cursor: pointer;
+}
 
-        .reset {
-            width: 100%;
-            margin-top: 10px;
-            height: 45px;
-            border: none;
-            background: transparent;
-            color: #555;
-            font-weight: 700;
-            cursor: pointer;
-        }
+/* RESULT */
+.result {
+    display: none;
+    margin-top: 20px;
+}
 
-        .result {
-            display: none;
-            margin-top: 20px;
-        }
+.emi-card {
+    background: #111;
+    color: white;
+    border-radius: 18px;
+    padding: 23px 18px;
+    text-align: center;
+}
 
-        .emi-card {
-            background: #111;
-            color: white;
-            border-radius: 18px;
-            padding: 23px 18px;
-            text-align: center;
-        }
+.emi-title {
+    font-size: 13px;
+    opacity: .75;
+    text-transform: uppercase;
+}
 
-        .emi-title {
-            font-size: 13px;
-            opacity: 0.75;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+.emi {
+    margin-top: 7px;
+    font-size: 36px;
+    font-weight: 900;
+}
 
-        .emi {
-            margin-top: 7px;
-            font-size: 36px;
-            font-weight: 900;
-        }
+.per-month {
+    font-size: 14px;
+    opacity: .75;
+    margin-top: 3px;
+}
 
-        .per-month {
-            font-size: 14px;
-            opacity: 0.75;
-        }
+.cibil {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+}
 
-        .cibil {
-            margin-top: 12px;
-            text-align: center;
-            font-size: 12px;
-            color: #777;
-        }
+/* ERROR */
+.error {
+    display: none;
+    color: #c62828;
+    background: #ffebee;
+    padding: 10px 12px;
+    border-radius: 9px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    font-weight: 600;
+}
 
-        .error {
-            display: none;
-            color: #c62828;
-            background: #ffebee;
-            padding: 10px 12px;
-            border-radius: 9px;
-            margin-bottom: 15px;
-            font-size: 13px;
-            font-weight: 600;
-        }
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 18px 0;
+    color: #999;
+    font-size: 11px;
+}
 
-        .footer {
-            text-align: center;
-            padding: 18px 0;
-            color: #999;
-            font-size: 11px;
-        }
+/* SIDE MENU */
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 90;
+}
 
-        @media (max-width: 380px) {
-            .app {
-                padding: 12px;
-            }
+.overlay.show {
+    display: block;
+}
 
-            .card {
-                padding: 18px;
-            }
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    max-width: 85%;
+    height: 100vh;
+    background: white;
+    z-index: 100;
+    padding: 22px;
+    transition: .3s ease;
+    box-shadow: 8px 0 25px rgba(0,0,0,.15);
+}
 
-            .header h1 {
-                font-size: 24px;
-            }
+.side-menu.open {
+    left: 0;
+}
 
-            .emi {
-                font-size: 32px;
-            }
-        }
-    </style>
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.menu-header h2 {
+    font-size: 21px;
+}
+
+.close-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 10px;
+    background: #f1f2f4;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.menu-section {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.menu-section h3 {
+    font-size: 16px;
+    margin-bottom: 18px;
+}
+
+.setting {
+    margin-bottom: 18px;
+}
+
+.setting label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.setting input {
+    height: 48px;
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.save-btn {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 11px;
+    background: #111;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.saved-message {
+    display: none;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+@media (max-width:380px) {
+    .app {
+        padding: 12px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .emi {
+        font-size: 32px;
+    }
+}
+</style>
 </head>
 
 <body>
 
+<!-- SIDE MENU -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<div class="side-menu" id="sideMenu">
+
+    <div class="menu-header">
+        <h2>☰ Main Menu</h2>
+
+        <button class="close-btn" onclick="closeMenu()">✕</button>
+    </div>
+
+    <div class="menu-section">
+
+        <h3>⚙️ EMI Settings</h3>
+
+        <div class="setting">
+            <label>Processing Fee</label>
+
+            <input
+                type="number"
+                id="processingFee"
+                min="0"
+                inputmode="numeric"
+            >
+        </div>
+
+        <div class="setting">
+            <label>Interest Rate (% per 12 months)</label>
+
+            <input
+                type="number"
+                id="interestRate"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+            >
+        </div>
+
+        <button class="save-btn" onclick="saveSettings()">
+            SAVE SETTINGS
+        </button>
+
+        <div class="saved-message" id="savedMessage">
+            ✓ Settings Saved
+        </div>
+
+    </div>
+
+</div>
+
+
 <div class="app">
 
-    <div class="header">
-        <div class="logo">🏍️</div>
-        <h1>Bike EMI Calculator</h1>
-        <p>Calculate your approximate monthly EMI</p>
+    <!-- TOP MENU -->
+    <div class="topbar">
+        <button class="menu-btn" onclick="openMenu()">☰</button>
     </div>
+
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div class="logo">🏍️</div>
+
+        <h1>Bike EMI Calculator</h1>
+
+        <p>Calculate your approximate monthly EMI</p>
+
+    </div>
+
 
     <div class="card">
 
         <div class="error" id="error"></div>
 
+
         <!-- ON ROAD PRICE -->
         <div class="field">
+
             <label>ON ROAD PRICE</label>
 
             <div class="input-wrap">
+
                 <span class="rupee">₹</span>
+
                 <input
                     type="number"
                     id="onRoadPrice"
@@ -300,15 +472,21 @@
                     min="1"
                     inputmode="numeric"
                 >
+
             </div>
+
         </div>
+
 
         <!-- DP -->
         <div class="field">
+
             <label>DOWN PAYMENT (DP)</label>
 
             <div class="input-wrap">
+
                 <span class="rupee">₹</span>
+
                 <input
                     type="number"
                     id="downPayment"
@@ -316,30 +494,45 @@
                     min="0"
                     inputmode="numeric"
                 >
+
             </div>
+
         </div>
 
+
         <!-- PRICE - DP -->
-        <div class="difference" id="differenceBox">
+        <div class="difference">
+
             <span>On Road Price − DP</span>
+
             <strong id="difference">₹0</strong>
+
         </div>
+
 
         <!-- HYPO -->
         <div class="field">
+
             <label>HYPO</label>
 
             <div class="hypo">
+
                 <span>Hypothecation Charges</span>
+
                 <span>₹500</span>
+
             </div>
+
         </div>
+
 
         <!-- TENURE -->
         <div class="field">
+
             <label>TENURE</label>
 
-            <div class="tenure-wrap">
+            <div class="input-wrap">
+
                 <input
                     type="number"
                     id="tenure"
@@ -347,25 +540,41 @@
                     min="1"
                     max="120"
                     inputmode="numeric"
+                    style="padding-left:15px;"
                 >
 
-                <div class="months">Months</div>
             </div>
+
+            <div style="
+                margin-top:6px;
+                color:#777;
+                font-size:12px;
+            ">
+                Enter tenure in months
+            </div>
+
         </div>
 
+
+        <!-- CALCULATE -->
         <button class="calculate" onclick="calculateEMI()">
             CALCULATE EMI
         </button>
+
 
         <button class="reset" onclick="resetCalculator()">
             Reset
         </button>
 
+
         <!-- RESULT -->
         <div class="result" id="result">
 
             <div class="emi-card">
-                <div class="emi-title">Approx EMI</div>
+
+                <div class="emi-title">
+                    Approx EMI
+                </div>
 
                 <div class="emi" id="emi">
                     ₹0
@@ -374,6 +583,7 @@
                 <div class="per-month">
                     per month
                 </div>
+
             </div>
 
             <div class="cibil">
@@ -384,6 +594,7 @@
 
     </div>
 
+
     <div class="footer">
         Bike EMI Calculator
     </div>
@@ -393,214 +604,429 @@
 
 <script>
 
-    /*
-        ================================
-        HIDDEN FINANCE SETTINGS
-        ================================
+/*
+==================================================
+DEFAULT SETTINGS
+==================================================
 
-        Processing Fee = ₹6,000
-        Interest = 8% per 12 months
-        Hypo = ₹500
+Processing Fee = ₹6,000
+Interest = 8% per 12 months
+Hypo = ₹500
+
+These settings can be changed from Main Menu.
+==================================================
+*/
+
+const DEFAULT_PROCESSING_FEE = 6000;
+const DEFAULT_INTEREST_RATE = 8;
+const HYPO = 500;
+
+
+/* GET SAVED SETTINGS */
+
+function getProcessingFee() {
+
+    const saved =
+        localStorage.getItem("processingFee");
+
+    return saved !== null
+        ? Number(saved)
+        : DEFAULT_PROCESSING_FEE;
+
+}
+
+
+function getInterestRate() {
+
+    const saved =
+        localStorage.getItem("interestRate");
+
+    return saved !== null
+        ? Number(saved)
+        : DEFAULT_INTEREST_RATE;
+
+}
+
+
+/* OPEN MENU */
+
+function openMenu() {
+
+    document
+        .getElementById("sideMenu")
+        .classList.add("open");
+
+    document
+        .getElementById("overlay")
+        .classList.add("show");
+
+}
+
+
+/* CLOSE MENU */
+
+function closeMenu() {
+
+    document
+        .getElementById("sideMenu")
+        .classList.remove("open");
+
+    document
+        .getElementById("overlay")
+        .classList.remove("show");
+
+}
+
+
+/* LOAD SETTINGS */
+
+function loadSettings() {
+
+    document.getElementById("processingFee").value =
+        getProcessingFee();
+
+    document.getElementById("interestRate").value =
+        getInterestRate();
+
+}
+
+
+/* SAVE SETTINGS */
+
+function saveSettings() {
+
+    const processingFee =
+        Number(
+            document.getElementById("processingFee").value
+        );
+
+    const interestRate =
+        Number(
+            document.getElementById("interestRate").value
+        );
+
+
+    if (processingFee < 0) {
+
+        alert("Please enter a valid Processing Fee.");
+
+        return;
+
+    }
+
+
+    if (interestRate < 0) {
+
+        alert("Please enter a valid Interest Rate.");
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "processingFee",
+        processingFee
+    );
+
+
+    localStorage.setItem(
+        "interestRate",
+        interestRate
+    );
+
+
+    const message =
+        document.getElementById("savedMessage");
+
+    message.style.display = "block";
+
+
+    setTimeout(() => {
+
+        message.style.display = "none";
+
+    }, 2000);
+
+}
+
+
+/* RUPEE FORMAT */
+
+function formatRupee(amount) {
+
+    return "₹" +
+        Math.round(amount)
+            .toLocaleString("en-IN");
+
+}
+
+
+/* ON ROAD PRICE - DP */
+
+function updateDifference() {
+
+    const price =
+        Number(
+            document.getElementById("onRoadPrice").value
+        ) || 0;
+
+    const dp =
+        Number(
+            document.getElementById("downPayment").value
+        ) || 0;
+
+
+    const difference =
+        price - dp;
+
+
+    document.getElementById("difference").textContent =
+        formatRupee(
+            Math.max(difference, 0)
+        );
+
+}
+
+
+/* CALCULATE EMI */
+
+function calculateEMI() {
+
+    const price =
+        Number(
+            document.getElementById("onRoadPrice").value
+        );
+
+    const dp =
+        Number(
+            document.getElementById("downPayment").value
+        );
+
+    const tenure =
+        Number(
+            document.getElementById("tenure").value
+        );
+
+
+    const errorBox =
+        document.getElementById("error");
+
+    errorBox.style.display = "none";
+
+
+    /* VALIDATION */
+
+    if (!price || price <= 0) {
+
+        showError(
+            "Please enter On Road Price."
+        );
+
+        return;
+
+    }
+
+
+    if (dp < 0 || dp >= price) {
+
+        showError(
+            "DP must be less than On Road Price."
+        );
+
+        return;
+
+    }
+
+
+    if (!tenure || tenure <= 0) {
+
+        showError(
+            "Please enter Tenure in months."
+        );
+
+        return;
+
+    }
+
+
+    if (tenure > 120) {
+
+        showError(
+            "Tenure cannot be more than 120 months."
+        );
+
+        return;
+
+    }
+
+
+    /* GET CURRENT SETTINGS */
+
+    const processingFee =
+        getProcessingFee();
+
+    const interestRate =
+        getInterestRate() / 100;
+
+
+    /*
+    ================================================
+    FINANCE AMOUNT
+
+    On Road Price
+    - DP
+    + Hypo ₹500
+    + Processing Fee
+    ================================================
     */
 
-    const PROCESSING_FEE = 6000;
-    const INTEREST_RATE = 0.08;
-    const HYPO = 500;
+    const financeAmount =
+        price -
+        dp +
+        HYPO +
+        processingFee;
 
 
-    // Format amount in Indian currency
-    function formatRupee(amount) {
+    /*
+    ================================================
+    INTEREST
 
-        return "₹" + Math.round(amount).toLocaleString("en-IN");
+    Example:
 
-    }
+    12 months = 8%
+    24 months = 16%
+    30 months = 20%
 
+    ================================================
+    */
 
-    // Update ON ROAD PRICE - DP live
-    function updateDifference() {
-
-        const price =
-            Number(document.getElementById("onRoadPrice").value) || 0;
-
-        const dp =
-            Number(document.getElementById("downPayment").value) || 0;
-
-        const difference = price - dp;
-
-        document.getElementById("difference").textContent =
-            formatRupee(Math.max(difference, 0));
-
-    }
+    const interest =
+        financeAmount *
+        interestRate *
+        (tenure / 12);
 
 
-    // Calculate EMI
-    function calculateEMI() {
+    /* TOTAL */
 
-        const price =
-            Number(document.getElementById("onRoadPrice").value);
-
-        const dp =
-            Number(document.getElementById("downPayment").value);
-
-        const tenure =
-            Number(document.getElementById("tenure").value);
-
-        const errorBox =
-            document.getElementById("error");
-
-        errorBox.style.display = "none";
+    const totalRepayment =
+        financeAmount +
+        interest;
 
 
-        // Validation
-        if (!price || price <= 0) {
+    /* EMI */
 
-            showError("Please enter On Road Price.");
-            return;
+    const emi =
+        totalRepayment /
+        tenure;
+
+
+    /* SHOW EMI */
+
+    document.getElementById("emi").textContent =
+        formatRupee(emi);
+
+
+    document.getElementById("result").style.display =
+        "block";
+
+
+    updateDifference();
+
+}
+
+
+/* ERROR */
+
+function showError(message) {
+
+    const errorBox =
+        document.getElementById("error");
+
+    errorBox.textContent =
+        message;
+
+    errorBox.style.display =
+        "block";
+
+}
+
+
+/* RESET */
+
+function resetCalculator() {
+
+    document.getElementById("onRoadPrice").value = "";
+
+    document.getElementById("downPayment").value = "";
+
+    document.getElementById("tenure").value = "";
+
+    document.getElementById("difference").textContent =
+        "₹0";
+
+    document.getElementById("emi").textContent =
+        "₹0";
+
+    document.getElementById("result").style.display =
+        "none";
+
+    document.getElementById("error").style.display =
+        "none";
+
+}
+
+
+/* LIVE PRICE - DP */
+
+document
+    .getElementById("onRoadPrice")
+    .addEventListener(
+        "input",
+        updateDifference
+    );
+
+
+document
+    .getElementById("downPayment")
+    .addEventListener(
+        "input",
+        updateDifference
+    );
+
+
+/* LOAD SETTINGS ON START */
+
+loadSettings();
+
+
+/* SERVICE WORKER */
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            navigator.serviceWorker
+                .register("service-worker.js")
+                .catch(
+                    function(error) {
+
+                        console.log(
+                            "Service Worker error:",
+                            error
+                        );
+
+                    }
+                );
 
         }
+    );
 
-
-        if (dp < 0 || dp >= price) {
-
-            showError("DP must be less than On Road Price.");
-            return;
-
-        }
-
-
-        if (!tenure || tenure <= 0) {
-
-            showError("Please enter Tenure in months.");
-            return;
-
-        }
-
-
-        if (tenure > 120) {
-
-            showError("Tenure cannot be more than 120 months.");
-            return;
-
-        }
-
-
-        /*
-            FINANCE AMOUNT
-
-            On Road Price
-            - Down Payment
-            + Hypo ₹500
-            + Processing Fee ₹6,000
-        */
-
-        const financeAmount =
-            price - dp + HYPO + PROCESSING_FEE;
-
-
-        /*
-            INTEREST
-
-            8% for every 12 months
-
-            Example:
-            12 months = 8%
-            24 months = 16%
-            30 months = 20%
-        */
-
-        const interest =
-            financeAmount *
-            INTEREST_RATE *
-            (tenure / 12);
-
-
-        // Total repayment
-        const totalRepayment =
-            financeAmount + interest;
-
-
-        // Monthly EMI
-        const emi =
-            totalRepayment / tenure;
-
-
-        // Display EMI
-        document.getElementById("emi").textContent =
-            formatRupee(emi);
-
-
-        document.getElementById("result").style.display =
-            "block";
-
-
-        // Update difference
-        updateDifference();
-
-    }
-
-
-    // Show error
-    function showError(message) {
-
-        const errorBox =
-            document.getElementById("error");
-
-        errorBox.textContent = message;
-        errorBox.style.display = "block";
-
-    }
-
-
-    // Reset
-    function resetCalculator() {
-
-        document.getElementById("onRoadPrice").value = "";
-        document.getElementById("downPayment").value = "";
-        document.getElementById("tenure").value = "";
-
-        document.getElementById("difference").textContent =
-            "₹0";
-
-        document.getElementById("emi").textContent =
-            "₹0";
-
-        document.getElementById("result").style.display =
-            "none";
-
-        document.getElementById("error").style.display =
-            "none";
-
-    }
-
-
-    // Live update when price or DP changes
-    document.getElementById("onRoadPrice")
-        .addEventListener("input", updateDifference);
-
-    document.getElementById("downPayment")
-        .addEventListener("input", updateDifference);
-
-
-    // Register offline service worker
-    if ("serviceWorker" in navigator) {
-
-        window.addEventListener("load", function () {
-
-            navigator.serviceWorker.register("service-worker.js")
-                .catch(function (error) {
-
-                    console.log(
-                        "Service Worker registration failed:",
-                        error
-                    );
-
-                });
-
-        });
-
-    }
+}
 
 </script>
 
 </body>
-</html>
+    </html
