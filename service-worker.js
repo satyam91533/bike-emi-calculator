@@ -1,61 +1,64 @@
-const CACHE_NAME = "bike-emi-calculator-v1";
+const CACHE_NAME = "bike-emi-calculator-v2";
 
 const FILES_TO_CACHE = [
-    "./",
-    "./index.html",
-    "./manifest.json"
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
+
 
 self.addEventListener("install", event => {
 
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(FILES_TO_CACHE))
-    );
+  event.waitUntil(
 
-    self.skipWaiting();
+    caches.open(CACHE_NAME).then(cache => {
+
+      return cache.addAll(FILES_TO_CACHE);
+
+    })
+
+  );
+
+  self.skipWaiting();
 
 });
 
 
 self.addEventListener("activate", event => {
 
-    event.waitUntil(
-        caches.keys().then(keys => {
+  event.waitUntil(
 
-            return Promise.all(
+    caches.keys().then(keys =>
 
-                keys
-                    .filter(key => key !== CACHE_NAME)
-                    .map(key => caches.delete(key))
+      Promise.all(
 
-            );
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
 
-        })
-    );
+      )
 
-    self.clients.claim();
+    )
+
+  );
+
+  self.clients.claim();
 
 });
 
 
 self.addEventListener("fetch", event => {
 
-    event.respondWith(
+  event.respondWith(
 
-        caches.match(event.request)
-            .then(cachedResponse => {
+    caches.match(event.request).then(cached =>
 
-                return cachedResponse ||
-                    fetch(event.request);
+      cached || fetch(event.request)
 
-            })
-            .catch(() => {
+    )
 
-                return caches.match("./index.html");
-
-            })
-
-    );
+  );
 
 });
