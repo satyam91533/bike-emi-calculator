@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,418 +14,518 @@
 <title>Bike EMI Calculator</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f1f3f6;
-    color: #111;
-    min-height: 100vh;
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f1f3f6;
+    color:#111;
+    min-height:100vh;
 }
 
-.app {
-    width: 100%;
-    max-width: 480px;
-    margin: auto;
-    min-height: 100vh;
-    padding: 15px;
+.app{
+    width:100%;
+    max-width:480px;
+    margin:auto;
+    min-height:100vh;
+    padding:15px;
 }
 
 /* TOP BAR */
-.topbar {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+
+.topbar{
+    height:50px;
+    display:flex;
+    align-items:center;
 }
 
-.menu-btn {
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 12px;
-    background: white;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+.menu-btn{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:12px;
+    background:white;
+    font-size:24px;
+    cursor:pointer;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
 /* HEADER */
-.header {
-    text-align: center;
-    padding: 8px 0 22px;
+
+.header{
+    text-align:center;
+    padding:8px 0 22px;
 }
 
-.logo {
-    width: 64px;
-    height: 64px;
-    margin: auto;
-    border-radius: 18px;
-    background: #111;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
+.logo{
+    width:64px;
+    height:64px;
+    margin:auto;
+    border-radius:18px;
+    background:#111;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
 }
 
-.header h1 {
-    margin-top: 13px;
-    font-size: 27px;
+.header h1{
+    margin-top:13px;
+    font-size:27px;
 }
 
-.header p {
-    margin-top: 6px;
-    color: #777;
-    font-size: 14px;
+.header p{
+    margin-top:6px;
+    color:#777;
+    font-size:14px;
 }
 
 /* CARD */
-.card {
-    background: white;
-    border-radius: 22px;
-    padding: 22px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+
+.card{
+    background:white;
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
 }
 
-.field {
-    margin-bottom: 18px;
+.field{
+    margin-bottom:18px;
 }
 
-.field label {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 8px;
+.field label{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:8px;
 }
 
-.input-wrap {
-    position: relative;
+/* INPUT */
+
+.input-wrap{
+    position:relative;
 }
 
-.rupee {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    font-weight: bold;
-    color: #555;
+.rupee{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:18px;
+    font-weight:bold;
+    color:#555;
 }
 
-input {
-    width: 100%;
-    height: 54px;
-    border: 1.5px solid #d9dce1;
-    border-radius: 12px;
-    padding: 0 15px 0 40px;
-    font-size: 18px;
-    font-weight: 600;
-    outline: none;
-    background: #fff;
+input{
+    width:100%;
+    height:54px;
+    border:1.5px solid #d9dce1;
+    border-radius:12px;
+    padding:0 15px 0 40px;
+    font-size:18px;
+    font-weight:600;
+    outline:none;
+    background:#fff;
 }
 
-input:focus {
-    border-color: #111;
+input:focus{
+    border-color:#111;
+}
+
+/* BIKE CODE */
+
+.code-input{
+    text-transform:uppercase;
+    padding-left:15px !important;
+}
+
+.code-status{
+    margin-top:6px;
+    font-size:12px;
+    color:#777;
+}
+
+.code-status.found{
+    color:#2e7d32;
+    font-weight:700;
+}
+
+.code-status.not-found{
+    color:#c62828;
+    font-weight:700;
+}
+
+/* PRICE */
+
+.price-display{
+    width:100%;
+    min-height:54px;
+    border:1.5px solid #e1e2e5;
+    border-radius:12px;
+    background:#f7f7f8;
+    display:flex;
+    align-items:center;
+    padding:0 15px;
+    font-size:18px;
+    font-weight:800;
 }
 
 /* DIFFERENCE */
-.difference {
-    margin-top: -5px;
-    margin-bottom: 18px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: #f5f6f7;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    color: #666;
+
+.difference{
+    margin-top:-5px;
+    margin-bottom:18px;
+    padding:12px 14px;
+    border-radius:10px;
+    background:#f5f6f7;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13px;
+    color:#666;
 }
 
-.difference strong {
-    color: #111;
-    font-size: 15px;
+.difference strong{
+    color:#111;
+    font-size:15px;
 }
 
 /* HYPO */
-.hypo {
-    height: 54px;
-    border-radius: 12px;
-    background: #f7f7f8;
-    border: 1.5px solid #e1e2e5;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
+
+.hypo{
+    height:54px;
+    border-radius:12px;
+    background:#f7f7f8;
+    border:1.5px solid #e1e2e5;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 16px;
 }
 
-.hypo span:first-child {
-    font-weight: 700;
+.hypo span:first-child{
+    font-weight:700;
 }
 
-.hypo span:last-child {
-    font-size: 18px;
-    font-weight: 800;
+.hypo span:last-child{
+    font-size:18px;
+    font-weight:800;
 }
 
 /* BUTTON */
-.calculate {
-    width: 100%;
-    height: 55px;
-    border: none;
-    border-radius: 13px;
-    background: #111;
-    color: white;
-    font-size: 17px;
-    font-weight: 800;
-    cursor: pointer;
+
+.calculate{
+    width:100%;
+    height:55px;
+    border:none;
+    border-radius:13px;
+    background:#111;
+    color:white;
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
 }
 
-.calculate:active {
-    transform: scale(.98);
+.calculate:active{
+    transform:scale(.98);
 }
 
-.reset {
-    width: 100%;
-    margin-top: 10px;
-    height: 45px;
-    border: none;
-    background: transparent;
-    color: #555;
-    font-weight: 700;
-    cursor: pointer;
+.reset{
+    width:100%;
+    margin-top:10px;
+    height:45px;
+    border:none;
+    background:transparent;
+    color:#555;
+    font-weight:700;
+    cursor:pointer;
 }
 
 /* RESULT */
-.result {
-    display: none;
-    margin-top: 20px;
+
+.result{
+    display:none;
+    margin-top:20px;
 }
 
-.emi-card {
-    background: #111;
-    color: white;
-    border-radius: 18px;
-    padding: 23px 18px;
-    text-align: center;
+.emi-card{
+    background:#111;
+    color:white;
+    border-radius:18px;
+    padding:23px 18px;
+    text-align:center;
 }
 
-.emi-title {
-    font-size: 13px;
-    opacity: .75;
-    text-transform: uppercase;
+.emi-title{
+    font-size:13px;
+    opacity:.75;
+    text-transform:uppercase;
 }
 
-.emi {
-    margin-top: 7px;
-    font-size: 36px;
-    font-weight: 900;
+.emi{
+    margin-top:7px;
+    font-size:36px;
+    font-weight:900;
 }
 
-.per-month {
-    font-size: 14px;
-    opacity: .75;
-    margin-top: 3px;
+.per-month{
+    font-size:14px;
+    opacity:.75;
+    margin-top:3px;
 }
 
-.cibil {
-    margin-top: 12px;
-    text-align: center;
-    font-size: 12px;
-    color: #777;
+.cibil{
+    margin-top:12px;
+    text-align:center;
+    font-size:12px;
+    color:#777;
 }
 
 /* ERROR */
-.error {
-    display: none;
-    color: #c62828;
-    background: #ffebee;
-    padding: 10px 12px;
-    border-radius: 9px;
-    margin-bottom: 15px;
-    font-size: 13px;
-    font-weight: 600;
+
+.error{
+    display:none;
+    color:#c62828;
+    background:#ffebee;
+    padding:10px 12px;
+    border-radius:9px;
+    margin-bottom:15px;
+    font-size:13px;
+    font-weight:600;
 }
 
 /* FOOTER */
-.footer {
-    text-align: center;
-    padding: 18px 0;
-    color: #999;
-    font-size: 11px;
+
+.footer{
+    text-align:center;
+    padding:18px 0;
+    color:#999;
+    font-size:11px;
 }
 
 /* SIDE MENU */
-.overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.45);
-    z-index: 90;
+
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:90;
 }
 
-.overlay.show {
-    display: block;
+.overlay.show{
+    display:block;
 }
 
-.side-menu {
-    position: fixed;
-    top: 0;
-    left: -320px;
-    width: 300px;
-    max-width: 85%;
-    height: 100vh;
-    background: white;
-    z-index: 100;
-    padding: 22px;
-    transition: .3s ease;
-    box-shadow: 8px 0 25px rgba(0,0,0,.15);
+.side-menu{
+    position:fixed;
+    top:0;
+    left:-330px;
+    width:310px;
+    max-width:88%;
+    height:100vh;
+    background:white;
+    z-index:100;
+    padding:22px;
+    transition:.3s ease;
+    box-shadow:8px 0 25px rgba(0,0,0,.15);
+    overflow-y:auto;
 }
 
-.side-menu.open {
-    left: 0;
+.side-menu.open{
+    left:0;
 }
 
-.menu-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
+.menu-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:28px;
 }
 
-.menu-header h2 {
-    font-size: 21px;
+.menu-header h2{
+    font-size:21px;
 }
 
-.close-btn {
-    width: 38px;
-    height: 38px;
-    border: none;
-    border-radius: 10px;
-    background: #f1f2f4;
-    font-size: 20px;
-    cursor: pointer;
+.close-btn{
+    width:38px;
+    height:38px;
+    border:none;
+    border-radius:10px;
+    background:#f1f2f4;
+    font-size:20px;
+    cursor:pointer;
 }
 
-.menu-section {
-    border-top: 1px solid #eee;
-    padding-top: 20px;
+.menu-section{
+    border-top:1px solid #eee;
+    padding-top:20px;
 }
 
-.menu-section h3 {
-    font-size: 16px;
-    margin-bottom: 18px;
+.menu-section h3{
+    font-size:16px;
+    margin-bottom:18px;
 }
 
-.setting {
-    margin-bottom: 18px;
+.setting{
+    margin-bottom:18px;
 }
 
-.setting label {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 7px;
+.setting label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:7px;
 }
 
-.setting input {
-    height: 48px;
-    padding-left: 15px;
-    font-size: 16px;
+.setting input{
+    height:48px;
+    padding-left:15px;
+    font-size:16px;
 }
 
-.save-btn {
-    width: 100%;
-    height: 50px;
-    border: none;
-    border-radius: 11px;
-    background: #111;
-    color: white;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
+.save-btn{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:11px;
+    background:#111;
+    color:white;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
 }
 
-.saved-message {
-    display: none;
-    text-align: center;
-    margin-top: 12px;
-    font-size: 13px;
-    color: #2e7d32;
-    font-weight: 700;
+.saved-message{
+    display:none;
+    text-align:center;
+    margin-top:12px;
+    font-size:13px;
+    color:#2e7d32;
+    font-weight:700;
 }
 
-@media (max-width:380px) {
-    .app {
-        padding: 12px;
+@media(max-width:380px){
+
+    .app{
+        padding:12px;
     }
 
-    .card {
-        padding: 18px;
+    .card{
+        padding:18px;
     }
 
-    .header h1 {
-        font-size: 24px;
+    .header h1{
+        font-size:24px;
     }
 
-    .emi {
-        font-size: 32px;
+    .emi{
+        font-size:32px;
     }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- SIDE MENU -->
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<div class="side-menu" id="sideMenu">
+<!-- SIDE MENU -->
+
+<div class="overlay"
+     id="overlay"
+     onclick="closeMenu()">
+</div>
+
+
+<div class="side-menu"
+     id="sideMenu">
 
     <div class="menu-header">
+
         <h2>☰ Main Menu</h2>
 
-        <button class="close-btn" onclick="closeMenu()">✕</button>
+        <button class="close-btn"
+                onclick="closeMenu()">
+            ✕
+        </button>
+
     </div>
+
 
     <div class="menu-section">
 
         <h3>⚙️ EMI Settings</h3>
 
+
         <div class="setting">
-            <label>Processing Fee</label>
+
+            <label>
+                Processing Fee
+            </label>
 
             <input
                 type="number"
                 id="processingFee"
                 min="0"
-                inputmode="numeric"
-            >
+                inputmode="numeric">
+
         </div>
 
+
         <div class="setting">
-            <label>Interest Rate (% per 12 months)</label>
+
+            <label>
+                Interest Rate (% per 12 months)
+            </label>
 
             <input
                 type="number"
                 id="interestRate"
                 min="0"
                 step="0.01"
-                inputmode="decimal"
-            >
+                inputmode="decimal">
+
         </div>
 
-        <button class="save-btn" onclick="saveSettings()">
+
+        <div class="setting">
+
+            <label>
+                🏷️ Discount
+            </label>
+
+            <input
+                type="number"
+                id="discount"
+                min="0"
+                inputmode="numeric">
+
+        </div>
+
+
+        <button class="save-btn"
+                onclick="saveSettings()">
+
             SAVE SETTINGS
+
         </button>
 
-        <div class="saved-message" id="savedMessage">
+
+        <div class="saved-message"
+             id="savedMessage">
+
             ✓ Settings Saved
+
         </div>
 
     </div>
@@ -431,47 +533,90 @@ input:focus {
 </div>
 
 
+
 <div class="app">
 
-    <!-- TOP MENU -->
+
+    <!-- TOP BAR -->
+
     <div class="topbar">
-        <button class="menu-btn" onclick="openMenu()">☰</button>
+
+        <button class="menu-btn"
+                onclick="openMenu()">
+
+            ☰
+
+        </button>
+
     </div>
 
 
     <!-- HEADER -->
+
     <div class="header">
 
-        <div class="logo">🏍️</div>
+        <div class="logo">
+            🏍️
+        </div>
 
-        <h1>Bike EMI Calculator</h1>
+        <h1>
+            Bike EMI Calculator
+        </h1>
 
-        <p>Calculate your approximate monthly EMI</p>
+        <p>
+            Calculate your approximate monthly EMI
+        </p>
 
     </div>
 
 
+
     <div class="card">
 
-        <div class="error" id="error"></div>
+
+        <div class="error"
+             id="error">
+        </div>
+
+
+        <!-- BIKE CODE -->
+
+        <div class="field">
+
+            <label>
+                BIKE CODE
+            </label>
+
+            <input
+                class="code-input"
+                type="text"
+                id="bikeCode"
+                placeholder="Enter bike code"
+                autocomplete="off"
+                autocapitalize="characters">
+
+            <div class="code-status"
+                 id="codeStatus">
+
+                Enter bike code
+
+            </div>
+
+        </div>
 
 
         <!-- ON ROAD PRICE -->
+
         <div class="field">
 
-            <label>ON ROAD PRICE</label>
+            <label>
+                ON ROAD PRICE
+            </label>
 
-            <div class="input-wrap">
+            <div class="price-display"
+                 id="onRoadPrice">
 
-                <span class="rupee">₹</span>
-
-                <input
-                    type="number"
-                    id="onRoadPrice"
-                    placeholder="Enter on road price"
-                    min="1"
-                    inputmode="numeric"
-                >
+                ₹0
 
             </div>
 
@@ -479,21 +624,25 @@ input:focus {
 
 
         <!-- DP -->
+
         <div class="field">
 
-            <label>DOWN PAYMENT (DP)</label>
+            <label>
+                DOWN PAYMENT (DP)
+            </label>
 
             <div class="input-wrap">
 
-                <span class="rupee">₹</span>
+                <span class="rupee">
+                    ₹
+                </span>
 
                 <input
                     type="number"
                     id="downPayment"
                     placeholder="Enter down payment"
                     min="0"
-                    inputmode="numeric"
-                >
+                    inputmode="numeric">
 
             </div>
 
@@ -501,25 +650,37 @@ input:focus {
 
 
         <!-- PRICE - DP -->
+
         <div class="difference">
 
-            <span>On Road Price − DP</span>
+            <span>
+                On Road Price − DP
+            </span>
 
-            <strong id="difference">₹0</strong>
+            <strong id="difference">
+                ₹0
+            </strong>
 
         </div>
 
 
         <!-- HYPO -->
+
         <div class="field">
 
-            <label>HYPO</label>
+            <label>
+                HYPO
+            </label>
 
             <div class="hypo">
 
-                <span>Hypothecation Charges</span>
+                <span>
+                    Hypothecation Charges
+                </span>
 
-                <span>₹500</span>
+                <span>
+                    ₹500
+                </span>
 
             </div>
 
@@ -527,9 +688,12 @@ input:focus {
 
 
         <!-- TENURE -->
+
         <div class="field">
 
-            <label>TENURE</label>
+            <label>
+                TENURE
+            </label>
 
             <div class="input-wrap">
 
@@ -540,8 +704,7 @@ input:focus {
                     min="1"
                     max="120"
                     inputmode="numeric"
-                    style="padding-left:15px;"
-                >
+                    style="padding-left:15px;">
 
             </div>
 
@@ -550,25 +713,38 @@ input:focus {
                 color:#777;
                 font-size:12px;
             ">
+
                 Enter tenure in months
+
             </div>
 
         </div>
 
 
         <!-- CALCULATE -->
-        <button class="calculate" onclick="calculateEMI()">
+
+        <button
+            class="calculate"
+            onclick="calculateEMI()">
+
             CALCULATE EMI
+
         </button>
 
 
-        <button class="reset" onclick="resetCalculator()">
+        <button
+            class="reset"
+            onclick="resetCalculator()">
+
             Reset
+
         </button>
 
 
         <!-- RESULT -->
-        <div class="result" id="result">
+
+        <div class="result"
+             id="result">
 
             <div class="emi-card">
 
@@ -576,8 +752,11 @@ input:focus {
                     Approx EMI
                 </div>
 
-                <div class="emi" id="emi">
+                <div class="emi"
+                     id="emi">
+
                     ₹0
+
                 </div>
 
                 <div class="per-month">
@@ -586,71 +765,225 @@ input:focus {
 
             </div>
 
+
             <div class="cibil">
+
                 Approx EMI according to your CIBIL
+
             </div>
 
         </div>
+
 
     </div>
 
 
     <div class="footer">
+
         Bike EMI Calculator
+
     </div>
+
 
 </div>
 
 
+
 <script>
 
-/*
-==================================================
-DEFAULT SETTINGS
-==================================================
 
-Processing Fee = ₹6,000
-Interest = 8% per 12 months
-Hypo = ₹500
-
-These settings can be changed from Main Menu.
-==================================================
-*/
+/* =========================================================
+   DEFAULT SETTINGS
+   ========================================================= */
 
 const DEFAULT_PROCESSING_FEE = 6000;
+
 const DEFAULT_INTEREST_RATE = 8;
+
+const DEFAULT_DISCOUNT = 0;
+
 const HYPO = 500;
 
 
-/* GET SAVED SETTINGS */
 
-function getProcessingFee() {
+/* =========================================================
+   BIKE DATABASE
 
-    const saved =
+   PRICE = PDF ON-ROAD PRICE + ₹3,000
+   ========================================================= */
+
+const bikes = {
+
+    "DY08": 80694.97 + 3000,
+    "DY13": 91813.55 + 3000,
+
+    "PF37": 79016.95 + 3000,
+
+    "JK35": 81580.23 + 3000,
+    "JK38": 92322.24 + 3000,
+    "JK39": 86726.62 + 3000,
+    "JK36": 91324.68 + 3000,
+
+    "DH50": 95953.85 + 3000,
+    "DH65": 99267.41 + 3000,
+    "DH71": 111701.57 + 3000,
+    "DH73": 109376.12 + 3000,
+    "DH70": 114007.21 + 3000,
+
+    "DH56": 105652.05 + 3000,
+    "DH58": 107353.65 + 3000,
+    "DH57": 103584.25 + 3000,
+    "DH62": 105094.26 + 3000,
+
+    "JR70": 112859.81 + 3000,
+    "JR71": 120767.67 + 3000,
+    "JR72": 119651.19 + 3000,
+    "JR73": 126319.61 + 3000,
+
+    "DH60": 130698.76 + 3000,
+    "DH59": 131032.03 + 3000,
+    "DH61": 134931.29 + 3000,
+    "DH63": 135264.56 + 3000,
+    "DH68": 137830.76 + 3000,
+    "DH69": 142269.92 + 3000,
+    "DH72": 134424.74 + 3000,
+
+    "JR67": 139243.83 + 3000,
+    "JR68": 147095.67 + 3000,
+    "JR91": 148228.79 + 3000,
+    "JR90": 154400.96 + 3000,
+
+    "JR38": 136051.08 + 3000,
+    "JR31": 139697.05 + 3000,
+
+    "JF46": 114087.70 + 3000,
+    "JF58": 123693.44 + 3000,
+    "JF60": 120727.13 + 3000,
+    "JF57": 122686.94 + 3000,
+    "JF50": 111973.65 + 3000,
+    "JF51": 116518.85 + 3000,
+    "JF44": 119339.79 + 3000,
+
+    "JF41": 150129.05 + 3000,
+    "JF55": 156887.79 + 3000,
+    "JF45": 166492.64 + 3000,
+    "JF43": 159307.31 + 3000,
+
+    "JR37": 145823.20 + 3000,
+    "JR45": 145823.20 + 3000,
+    "JR82": 152395.31 + 3000,
+    "JR83": 162866.66 + 3000,
+    "JR75": 162026.82 + 3000,
+    "JR54": 172144.90 + 3000,
+
+    "JL22": 164699.63 + 3000,
+    "JL30": 171625.00 + 3000,
+    "JL24": 173564.61 + 3000,
+    "JL25": 183262.80 + 3000,
+
+    "DT19": 196010.86 + 3000,
+    "DT22": 217973.37 + 3000,
+
+    "JR20": 165019.56 + 3000,
+    "JR34": 178657.00 + 3000,
+    "JR21": 156574.50 + 3000,
+    "JR33": 159067.36 + 3000,
+
+    "PD36": 141010.78 + 3000,
+    "PD39": 141344.05 + 3000,
+    "PD35": 169258.76 + 3000,
+    "PD38": 166019.39 + 3000,
+    "PD40": 166019.39 + 3000,
+
+    "JF36": 207131.59 + 3000,
+    "JF53": 224075.07 + 3000,
+    "JF62": 248290.48 + 3000,
+    "JF52": 293447.39 + 3000,
+
+    "JL32": 223148.58 + 3000,
+    "JL28": 241103.63 + 3000,
+
+    "DK12": 158260.84 + 3000,
+    "DK13": 158614.11 + 3000,
+    "DK14": 166032.73 + 3000,
+    "DK15": 172071.58 + 3000,
+
+    "JR32": 172918.07 + 3000,
+
+    "DH64": 127419.38 + 3000,
+    "DH66": 127752.65 + 3000,
+
+    "JH27": 124195.30 + 3000,
+    "JH30": 107693.43 + 3000,
+    "JH31": 111262.00 + 3000,
+    "JH36": 141508.71 + 3000,
+    "JH37": 126291.58 + 3000,
+    "JH38": 129828.26 + 3000,
+
+    "JZ51": 112011.17 + 3000,
+    "JZ56": 112526.47 + 3000,
+    "JZ53": 105585.99 + 3000,
+
+    "JR50": 141750.64 + 3000,
+    "JR53": 145323.31 + 3000,
+    "JR52": 148582.70 + 3000,
+
+    "JF61": 128659.16 + 3000,
+
+    "JR63": 148789.30 + 3000,
+
+    "DJ16": 152948.52 + 3000
+
+};
+
+
+
+/* =========================================================
+   SETTINGS GETTERS
+   ========================================================= */
+
+function getProcessingFee(){
+
+    const value =
         localStorage.getItem("processingFee");
 
-    return saved !== null
-        ? Number(saved)
+    return value !== null
+        ? Number(value)
         : DEFAULT_PROCESSING_FEE;
 
 }
 
 
-function getInterestRate() {
+function getInterestRate(){
 
-    const saved =
+    const value =
         localStorage.getItem("interestRate");
 
-    return saved !== null
-        ? Number(saved)
+    return value !== null
+        ? Number(value)
         : DEFAULT_INTEREST_RATE;
 
 }
 
 
-/* OPEN MENU */
+function getDiscount(){
 
-function openMenu() {
+    const value =
+        localStorage.getItem("discount");
+
+    return value !== null
+        ? Number(value)
+        : DEFAULT_DISCOUNT;
+
+}
+
+
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+function openMenu(){
 
     document
         .getElementById("sideMenu")
@@ -663,9 +996,7 @@ function openMenu() {
 }
 
 
-/* CLOSE MENU */
-
-function closeMenu() {
+function closeMenu(){
 
     document
         .getElementById("sideMenu")
@@ -678,46 +1009,100 @@ function closeMenu() {
 }
 
 
-/* LOAD SETTINGS */
 
-function loadSettings() {
+/* =========================================================
+   LOAD SETTINGS
+   ========================================================= */
 
-    document.getElementById("processingFee").value =
+function loadSettings(){
+
+    document
+        .getElementById("processingFee")
+        .value =
         getProcessingFee();
 
-    document.getElementById("interestRate").value =
+
+    document
+        .getElementById("interestRate")
+        .value =
         getInterestRate();
+
+
+    document
+        .getElementById("discount")
+        .value =
+        getDiscount();
 
 }
 
 
-/* SAVE SETTINGS */
 
-function saveSettings() {
+/* =========================================================
+   SAVE SETTINGS
+   ========================================================= */
+
+function saveSettings(){
 
     const processingFee =
         Number(
-            document.getElementById("processingFee").value
+            document
+                .getElementById("processingFee")
+                .value
         );
+
 
     const interestRate =
         Number(
-            document.getElementById("interestRate").value
+            document
+                .getElementById("interestRate")
+                .value
         );
 
 
-    if (processingFee < 0) {
+    const discount =
+        Number(
+            document
+                .getElementById("discount")
+                .value
+        );
 
-        alert("Please enter a valid Processing Fee.");
+
+    if(
+        isNaN(processingFee) ||
+        processingFee < 0
+    ){
+
+        alert(
+            "Please enter a valid Processing Fee."
+        );
 
         return;
 
     }
 
 
-    if (interestRate < 0) {
+    if(
+        isNaN(interestRate) ||
+        interestRate < 0
+    ){
 
-        alert("Please enter a valid Interest Rate.");
+        alert(
+            "Please enter a valid Interest Rate."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        isNaN(discount) ||
+        discount < 0
+    ){
+
+        alert(
+            "Please enter a valid Discount."
+        );
 
         return;
 
@@ -736,44 +1121,229 @@ function saveSettings() {
     );
 
 
+    localStorage.setItem(
+        "discount",
+        discount
+    );
+
+
+    /*
+       IMPORTANT:
+       If a bike is already selected,
+       immediately refresh its displayed
+       On Road Price after discount.
+    */
+
+    const code =
+        document
+            .getElementById("bikeCode")
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    if(bikes.hasOwnProperty(code)){
+
+        showBikePrice(code);
+
+    }
+
+
     const message =
-        document.getElementById("savedMessage");
+        document
+            .getElementById("savedMessage");
 
-    message.style.display = "block";
+
+    message.style.display =
+        "block";
 
 
-    setTimeout(() => {
+    setTimeout(
+        function(){
 
-        message.style.display = "none";
+            message.style.display =
+                "none";
 
-    }, 2000);
+        },
+        2000
+    );
 
 }
 
 
-/* RUPEE FORMAT */
 
-function formatRupee(amount) {
+/* =========================================================
+   FORMAT RUPEE
+   ========================================================= */
+
+function formatRupee(amount){
 
     return "₹" +
         Math.round(amount)
-            .toLocaleString("en-IN");
+        .toLocaleString("en-IN");
 
 }
 
 
-/* ON ROAD PRICE - DP */
 
-function updateDifference() {
+/* =========================================================
+   SHOW BIKE PRICE
+   ========================================================= */
+
+function showBikePrice(code){
+
+    const originalPrice =
+        bikes[code];
+
+
+    /*
+       Discount is applied HERE.
+
+       So homepage itself shows:
+
+       Database Price
+       - Discount
+       = Final On Road Price
+    */
+
+    const discount =
+        getDiscount();
+
+
+    const finalPrice =
+        Math.max(
+            originalPrice - discount,
+            0
+        );
+
+
+    document
+        .getElementById("onRoadPrice")
+        .textContent =
+        formatRupee(finalPrice);
+
+
+    document
+        .getElementById("codeStatus")
+        .textContent =
+        "✓ Bike code found";
+
+
+    document
+        .getElementById("codeStatus")
+        .className =
+        "code-status found";
+
+
+    updateDifference();
+
+}
+
+
+
+/* =========================================================
+   BIKE CODE SEARCH
+   ========================================================= */
+
+function findBike(){
+
+    const code =
+        document
+            .getElementById("bikeCode")
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    document
+        .getElementById("bikeCode")
+        .value =
+        code;
+
+
+    if(code === ""){
+
+        document
+            .getElementById("onRoadPrice")
+            .textContent =
+            "₹0";
+
+
+        document
+            .getElementById("codeStatus")
+            .textContent =
+            "Enter bike code";
+
+
+        document
+            .getElementById("codeStatus")
+            .className =
+            "code-status";
+
+
+        updateDifference();
+
+        return;
+
+    }
+
+
+    if(bikes.hasOwnProperty(code)){
+
+        showBikePrice(code);
+
+    }
+
+    else{
+
+        document
+            .getElementById("onRoadPrice")
+            .textContent =
+            "₹0";
+
+
+        document
+            .getElementById("codeStatus")
+            .textContent =
+            "Bike code not found";
+
+
+        document
+            .getElementById("codeStatus")
+            .className =
+            "code-status not-found";
+
+
+        updateDifference();
+
+    }
+
+}
+
+
+
+/* =========================================================
+   UPDATE PRICE - DP
+   ========================================================= */
+
+function updateDifference(){
+
+    const priceText =
+        document
+            .getElementById("onRoadPrice")
+            .textContent
+            .replace(/[₹,]/g,"");
+
 
     const price =
-        Number(
-            document.getElementById("onRoadPrice").value
-        ) || 0;
+        Number(priceText) || 0;
+
 
     const dp =
         Number(
-            document.getElementById("downPayment").value
+            document
+                .getElementById("downPayment")
+                .value
         ) || 0;
 
 
@@ -781,46 +1351,72 @@ function updateDifference() {
         price - dp;
 
 
-    document.getElementById("difference").textContent =
+    document
+        .getElementById("difference")
+        .textContent =
         formatRupee(
-            Math.max(difference, 0)
+            Math.max(difference,0)
         );
 
 }
 
 
-/* CALCULATE EMI */
 
-function calculateEMI() {
+/* =========================================================
+   CALCULATE EMI
+   ========================================================= */
 
-    const price =
-        Number(
-            document.getElementById("onRoadPrice").value
-        );
+function calculateEMI(){
+
+    const priceText =
+        document
+            .getElementById("onRoadPrice")
+            .textContent
+            .replace(/[₹,]/g,"");
+
+
+    /*
+       This is ALREADY the discounted
+       On Road Price.
+
+       Discount will NOT be applied again.
+    */
+
+    const finalPrice =
+        Number(priceText);
+
 
     const dp =
         Number(
-            document.getElementById("downPayment").value
+            document
+                .getElementById("downPayment")
+                .value
         );
+
 
     const tenure =
         Number(
-            document.getElementById("tenure").value
+            document
+                .getElementById("tenure")
+                .value
         );
 
 
-    const errorBox =
-        document.getElementById("error");
+    document
+        .getElementById("error")
+        .style.display =
+        "none";
 
-    errorBox.style.display = "none";
 
+    /* PRICE */
 
-    /* VALIDATION */
-
-    if (!price || price <= 0) {
+    if(
+        !finalPrice ||
+        finalPrice <= 0
+    ){
 
         showError(
-            "Please enter On Road Price."
+            "Please enter a valid Bike Code."
         );
 
         return;
@@ -828,7 +1424,13 @@ function calculateEMI() {
     }
 
 
-    if (dp < 0 || dp >= price) {
+    /* DP */
+
+    if(
+        isNaN(dp) ||
+        dp < 0 ||
+        dp >= finalPrice
+    ){
 
         showError(
             "DP must be less than On Road Price."
@@ -839,7 +1441,12 @@ function calculateEMI() {
     }
 
 
-    if (!tenure || tenure <= 0) {
+    /* TENURE */
+
+    if(
+        !tenure ||
+        tenure <= 0
+    ){
 
         showError(
             "Please enter Tenure in months."
@@ -850,7 +1457,7 @@ function calculateEMI() {
     }
 
 
-    if (tenure > 120) {
+    if(tenure > 120){
 
         showError(
             "Tenure cannot be more than 120 months."
@@ -861,50 +1468,42 @@ function calculateEMI() {
     }
 
 
-    /* GET CURRENT SETTINGS */
+    /* SETTINGS */
 
     const processingFee =
         getProcessingFee();
+
 
     const interestRate =
         getInterestRate() / 100;
 
 
     /*
-    ================================================
-    FINANCE AMOUNT
+       FINANCE AMOUNT
 
-    On Road Price
-    - DP
-    + Hypo ₹500
-    + Processing Fee
-    ================================================
+       Final On Road Price
+       - DP
+       + Hypo ₹500
+       + Processing Fee
     */
 
     const financeAmount =
-        price -
-        dp +
-        HYPO +
-        processingFee;
+        finalPrice
+        - dp
+        + HYPO
+        + processingFee;
 
 
     /*
-    ================================================
-    INTEREST
+       INTEREST
 
-    Example:
-
-    12 months = 8%
-    24 months = 16%
-    30 months = 20%
-
-    ================================================
+       8% per 12 months
     */
 
     const interest =
-        financeAmount *
-        interestRate *
-        (tenure / 12);
+        financeAmount
+        * interestRate
+        * (tenure / 12);
 
 
     /* TOTAL */
@@ -921,13 +1520,17 @@ function calculateEMI() {
         tenure;
 
 
-    /* SHOW EMI */
+    /* DISPLAY */
 
-    document.getElementById("emi").textContent =
+    document
+        .getElementById("emi")
+        .textContent =
         formatRupee(emi);
 
 
-    document.getElementById("result").style.display =
+    document
+        .getElementById("result")
+        .style.display =
         "block";
 
 
@@ -936,15 +1539,21 @@ function calculateEMI() {
 }
 
 
-/* ERROR */
 
-function showError(message) {
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+function showError(message){
 
     const errorBox =
-        document.getElementById("error");
+        document
+            .getElementById("error");
+
 
     errorBox.textContent =
         message;
+
 
     errorBox.style.display =
         "block";
@@ -952,38 +1561,85 @@ function showError(message) {
 }
 
 
-/* RESET */
 
-function resetCalculator() {
+/* =========================================================
+   RESET CALCULATOR
+   ========================================================= */
 
-    document.getElementById("onRoadPrice").value = "";
+function resetCalculator(){
 
-    document.getElementById("downPayment").value = "";
+    document
+        .getElementById("bikeCode")
+        .value =
+        "";
 
-    document.getElementById("tenure").value = "";
 
-    document.getElementById("difference").textContent =
+    document
+        .getElementById("downPayment")
+        .value =
+        "";
+
+
+    document
+        .getElementById("tenure")
+        .value =
+        "";
+
+
+    document
+        .getElementById("onRoadPrice")
+        .textContent =
         "₹0";
 
-    document.getElementById("emi").textContent =
+
+    document
+        .getElementById("difference")
+        .textContent =
         "₹0";
 
-    document.getElementById("result").style.display =
+
+    document
+        .getElementById("emi")
+        .textContent =
+        "₹0";
+
+
+    document
+        .getElementById("result")
+        .style.display =
         "none";
 
-    document.getElementById("error").style.display =
+
+    document
+        .getElementById("error")
+        .style.display =
         "none";
+
+
+    document
+        .getElementById("codeStatus")
+        .textContent =
+        "Enter bike code";
+
+
+    document
+        .getElementById("codeStatus")
+        .className =
+        "code-status";
 
 }
 
 
-/* LIVE PRICE - DP */
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
 
 document
-    .getElementById("onRoadPrice")
+    .getElementById("bikeCode")
     .addEventListener(
         "input",
-        updateDifference
+        findBike
     );
 
 
@@ -995,26 +1651,30 @@ document
     );
 
 
-/* LOAD SETTINGS ON START */
+/* =========================================================
+   START
+   ========================================================= */
 
 loadSettings();
 
 
-/* SERVICE WORKER */
+/* =========================================================
+   SERVICE WORKER
+   ========================================================= */
 
-if ("serviceWorker" in navigator) {
+if("serviceWorker" in navigator){
 
     window.addEventListener(
         "load",
-        function() {
+        function(){
 
             navigator.serviceWorker
                 .register("service-worker.js")
                 .catch(
-                    function(error) {
+                    function(error){
 
                         console.log(
-                            "Service Worker error:",
+                            "Service Worker Error:",
                             error
                         );
 
@@ -1029,4 +1689,4 @@ if ("serviceWorker" in navigator) {
 </script>
 
 </body>
-    </html
+</html>
