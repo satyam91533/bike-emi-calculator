@@ -7,539 +7,635 @@
 <title>Bike EMI Calculator - Shashi Automobiles, Bettiah</title>
 
 <link rel="manifest" href="manifest.json">
+
 <meta name="theme-color" content="#111111">
 
 <style>
+
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+  box-sizing:border-box;
 }
 
 body{
-    font-family:Arial,sans-serif;
-    background:#f3f4f6;
-    color:#111;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+  color:#111;
 }
 
-.header{
-    background:#111;
-    color:#fff;
-    text-align:center;
-    padding:20px 15px;
+/* HEADER */
+
+header{
+  background:#111;
+  color:white;
+  padding:18px;
+  text-align:center;
+  position:relative;
 }
 
-.header h1{
-    font-size:24px;
+header h1{
+  margin:0;
+  font-size:22px;
 }
 
-.header p{
-    margin-top:5px;
-    font-size:14px;
-    opacity:.85;
+header p{
+  margin:5px 0 0;
+  font-size:13px;
+  opacity:.8;
 }
+
+/* MENU BUTTON */
 
 .menu-btn{
-    position:fixed;
-    top:15px;
-    left:15px;
-    z-index:1001;
-    width:42px;
-    height:42px;
-    border:0;
-    border-radius:50%;
-    background:#fff;
-    color:#111;
-    font-size:23px;
-    cursor:pointer;
-    box-shadow:0 3px 12px rgba(0,0,0,.25);
+  position:absolute;
+  right:15px;
+  top:15px;
+  background:white;
+  color:#111;
+  border:none;
+  border-radius:8px;
+  width:40px;
+  height:40px;
+  font-size:22px;
+  cursor:pointer;
 }
 
-.container{
-    max-width:500px;
-    margin:25px auto;
-    padding:15px;
+/* OVERLAY */
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:9;
 }
 
-.card{
-    background:#fff;
-    border-radius:18px;
-    padding:22px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-}
-
-label{
-    display:block;
-    font-size:14px;
-    font-weight:bold;
-    margin-bottom:7px;
-}
-
-input{
-    width:100%;
-    padding:14px;
-    border:1px solid #d1d5db;
-    border-radius:10px;
-    font-size:17px;
-    outline:none;
-    margin-bottom:15px;
-}
-
-input:focus{
-    border-color:#111;
-}
-
-.bike-name{
-    font-size:16px;
-    font-weight:bold;
-    margin-bottom:15px;
-    color:#333;
-}
-
-.price-box{
-    background:#f5f5f5;
-    border-radius:12px;
-    padding:15px;
-    margin-bottom:15px;
-}
-
-.price-box .title{
-    font-size:13px;
-    color:#666;
-}
-
-.price-box .price{
-    font-size:25px;
-    font-weight:bold;
-    margin-top:4px;
-}
-
-.diff-box{
-    background:#fafafa;
-    border:1px dashed #bbb;
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:15px;
-}
-
-.diff-box span{
-    font-weight:bold;
-}
-
-.hypo{
-    display:flex;
-    justify-content:space-between;
-    background:#f5f5f5;
-    padding:13px;
-    border-radius:10px;
-    margin-bottom:18px;
-}
-
-.calculate{
-    width:100%;
-    padding:15px;
-    background:#111;
-    color:#fff;
-    border:none;
-    border-radius:11px;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.result{
-    margin-top:20px;
-    background:#111;
-    color:#fff;
-    border-radius:16px;
-    padding:22px;
-    text-align:center;
-    display:none;
-}
-
-.result small{
-    font-size:13px;
-    opacity:.8;
-}
-
-.result h2{
-    font-size:35px;
-    margin:8px 0;
-}
-
-.pdf-btn{
-    width:100%;
-    margin-top:15px;
-    padding:13px;
-    background:#fff;
-    color:#111;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.error{
-    color:#d00000;
-    font-size:14px;
-    margin-bottom:10px;
-    display:none;
+.overlay.active{
+  display:block;
 }
 
 /* SIDE MENU */
 
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    z-index:1000;
-    display:none;
-}
-
-.overlay.show{
-    display:block;
-}
-
 .side-menu{
-    position:fixed;
-    top:0;
-    left:-320px;
-    width:300px;
-    height:100%;
-    background:#fff;
-    z-index:1002;
-    padding:25px 20px;
-    transition:.3s;
-    box-shadow:5px 0 20px rgba(0,0,0,.2);
+  position:fixed;
+  top:0;
+  right:-330px;
+  width:310px;
+  max-width:85%;
+  height:100%;
+  background:white;
+  z-index:10;
+  padding:22px;
+  transition:.3s;
+  box-shadow:-5px 0 20px rgba(0,0,0,.2);
+  overflow-y:auto;
 }
 
-.side-menu.open{
-    left:0;
+.side-menu.active{
+  right:0;
 }
 
 .side-menu h2{
-    margin-bottom:5px;
+  margin-top:0;
 }
 
-.side-menu p{
-    color:#777;
-    font-size:13px;
-    margin-bottom:20px;
+.close-btn{
+  float:right;
+  border:none;
+  background:#eee;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  font-size:20px;
+  cursor:pointer;
 }
 
 .setting{
-    margin-bottom:15px;
+  margin-top:25px;
+}
+
+.setting label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px;
 }
 
 .setting input{
-    margin-bottom:0;
-}
-
-.save-btn,
-.reset-btn{
-    width:100%;
-    padding:13px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:8px;
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
 }
 
 .save-btn{
-    background:#111;
-    color:#fff;
+  width:100%;
+  margin-top:25px;
+  padding:13px;
+  background:#111;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.reset-btn{
-    background:#eee;
-    color:#111;
+/* MAIN */
+
+.container{
+  max-width:550px;
+  margin:25px auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:22px;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.field{
+  margin-bottom:18px;
+}
+
+.field label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.field input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:16px;
+}
+
+.field input[readonly]{
+  background:#eee;
+}
+
+/* HYPO */
+
+.hypo{
+  background:#f3f4f6;
+  padding:12px;
+  border-radius:9px;
+  margin-bottom:18px;
+  font-weight:bold;
+}
+
+/* SMALL CALCULATION */
+
+.small-calc{
+  background:#f8f8f8;
+  border-left:4px solid #111;
+  padding:12px;
+  margin-top:10px;
+  border-radius:7px;
+}
+
+#remainingAmount{
+  font-weight:bold;
+}
+
+/* CALCULATE BUTTON */
+
+.calculate-btn{
+  width:100%;
+  padding:15px;
+  background:#111;
+  color:white;
+  border:none;
+  border-radius:9px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* RESULT */
+
+.result{
+  display:none;
+  margin-top:20px;
+  background:#111;
+  color:white;
+  border-radius:15px;
+  padding:25px;
+  text-align:center;
+}
+
+.result p{
+  margin:5px 0;
+}
+
+.result h2{
+  font-size:38px;
+  margin:12px 0;
+}
+
+.pdf-btn{
+  margin-top:15px;
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:9px;
+  background:white;
+  color:#111;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 /* PDF */
 
 #pdfQuotation{
-    display:none;
+  display:none;
 }
 
 .pdf-paper{
-    max-width:700px;
-    margin:auto;
-    background:#fff;
-    padding:35px;
-    font-family:Arial,sans-serif;
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  background:white;
+  padding:35px;
+  border:1px solid #ddd;
 }
 
 .pdf-header{
-    text-align:center;
-    border-bottom:2px solid #111;
-    padding-bottom:15px;
-    margin-bottom:25px;
+  text-align:center;
+  border-bottom:2px solid #111;
+  padding-bottom:15px;
+  margin-bottom:20px;
 }
 
 .pdf-header h1{
-    font-size:25px;
+  margin:0;
+  font-size:28px;
 }
 
 .pdf-header p{
-    margin-top:5px;
-    color:#555;
+  margin:7px 0 0;
+  font-size:16px;
 }
 
 .pdf-row{
-    display:flex;
-    justify-content:space-between;
-    padding:13px 5px;
-    border-bottom:1px solid #ddd;
-    font-size:16px;
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid #ddd;
+  font-size:16px;
 }
 
-.pdf-row strong{
-    font-size:16px;
+.pdf-row span{
+  color:#555;
 }
 
 .pdf-emi{
-    margin-top:25px;
-    border:2px solid #111;
-    padding:20px;
-    text-align:center;
-    border-radius:10px;
+  text-align:center;
+  margin-top:30px;
+  padding:20px;
+  border:2px solid #111;
+  border-radius:10px;
 }
 
 .pdf-emi p{
-    font-size:14px;
+  margin:0;
+  font-size:15px;
 }
 
 .pdf-emi h2{
-    font-size:30px;
-    margin-top:7px;
+  font-size:35px;
+  margin:8px 0 0;
 }
 
 .pdf-footer{
-    text-align:center;
-    margin-top:30px;
-    font-size:12px;
-    color:#666;
+  text-align:center;
+  margin-top:25px;
+  font-size:12px;
+  color:#555;
 }
 
 /* PRINT */
 
 @media print{
 
-    body{
-        background:#fff;
-    }
+  body{
+    background:white;
+  }
 
-    body *{
-        visibility:hidden;
-    }
+  body *{
+    visibility:hidden;
+  }
 
-    #pdfQuotation,
-    #pdfQuotation *{
-        visibility:visible;
-    }
+  #pdfQuotation,
+  #pdfQuotation *{
+    visibility:visible;
+  }
 
-    #pdfQuotation{
-        position:absolute;
-        left:0;
-        top:0;
-        width:100%;
-        display:block !important;
-    }
+  #pdfQuotation{
+    display:block;
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+  }
 
-    .no-print{
-        display:none !important;
-    }
+  .pdf-paper{
+    border:none;
+    max-width:none;
+    width:100%;
+  }
+
+  @page{
+    size:A4;
+    margin:15mm;
+  }
 }
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  header h1{
+    font-size:19px;
+    padding-right:45px;
+  }
+
+  .container{
+    margin:15px auto;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<button class="menu-btn no-print" onclick="openMenu()">☰</button>
 
-<header class="header no-print">
-    <h1>Bike EMI Calculator</h1>
-    <p>Shashi Bajaj, Bettiah</p>
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <h1>Shashi Automobiles, Bettiah</h1>
+
+  <p>Bike EMI Calculator</p>
+
+  <button
+    class="menu-btn"
+    onclick="openMenu()"
+  >
+    ☰
+  </button>
+
 </header>
 
 
-<div class="container no-print">
+<!-- =========================
+     SIDE MENU
+========================= -->
 
-<div class="card">
+<div
+  class="overlay"
+  id="overlay"
+  onclick="closeMenu()"
+></div>
 
-    <label>BIKE CODE</label>
+
+<div
+  class="side-menu"
+  id="sideMenu"
+>
+
+  <button
+    class="close-btn"
+    onclick="closeMenu()"
+  >
+    ×
+  </button>
+
+  <h2>Main Menu</h2>
+
+
+  <div class="setting">
+
+    <label>
+      Processing Fee (₹)
+    </label>
 
     <input
+      type="number"
+      id="processingFee"
+      value="6000"
+      min="0"
+    >
+
+  </div>
+
+
+  <div class="setting">
+
+    <label>
+      Interest Rate (% per 12 months)
+    </label>
+
+    <input
+      type="number"
+      id="interestRate"
+      value="8"
+      step="0.1"
+      min="0"
+    >
+
+  </div>
+
+
+  <div class="setting">
+
+    <label>
+      Discount (₹)
+    </label>
+
+    <input
+      type="number"
+      id="discount"
+      value="0"
+      min="0"
+    >
+
+  </div>
+
+
+  <button
+    class="save-btn"
+    onclick="saveSettings()"
+  >
+    Save Settings
+  </button>
+
+</div>
+
+
+<!-- =========================
+     CALCULATOR
+========================= -->
+
+<div class="container">
+
+  <div class="card">
+
+
+    <!-- BIKE CODE -->
+
+    <div class="field">
+
+      <label>
+        BIKE CODE
+      </label>
+
+      <input
         type="text"
         id="bikeCode"
-        placeholder="Enter Bike Code"
-        autocomplete="off"
-        oninput="this.value=this.value.toUpperCase()"
+        placeholder="Example: JR71"
         onkeyup="findBike()"
-    >
-
-    <div id="error" class="error"></div>
-
-    <div id="bikeName" class="bike-name"></div>
-
-
-    <label>ON ROAD PRICE</label>
-
-    <div class="price-box">
-
-        <div class="title">
-            Final On Road Price
-        </div>
-
-        <div class="price" id="onRoadPrice">
-            ₹0
-        </div>
+        autocomplete="off"
+      >
 
     </div>
 
 
-    <label>DOWN PAYMENT</label>
+    <!-- ON ROAD PRICE -->
 
-    <input
+    <div class="field">
+
+      <label>
+        ON ROAD PRICE (₹)
+      </label>
+
+      <input
+        type="number"
+        id="onRoadPrice"
+        readonly
+        placeholder="Bike code enter karein"
+      >
+
+    </div>
+
+
+    <!-- SMALL CALCULATION -->
+
+    <div class="small-calc">
+
+      <strong>
+        On Road Price − DP:
+      </strong>
+
+      <span id="remainingAmount">
+        ₹0
+      </span>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- DOWN PAYMENT -->
+
+    <div class="field">
+
+      <label>
+        DOWN PAYMENT (₹)
+      </label>
+
+      <input
         type="number"
         id="downPayment"
-        placeholder="Enter Down Payment"
+        placeholder="Example: 20000"
         min="0"
-        oninput="updateDifference()"
-    >
-
-
-    <div class="diff-box">
-
-        On Road Price − DP:
-        <span id="difference">₹0</span>
+        oninput="updateRemaining()"
+      >
 
     </div>
 
 
-    <div class="hypo">
+    <!-- TENURE -->
 
-        <span>Hypothecation</span>
+    <div class="field">
 
-        <strong>₹500</strong>
+      <label>
+        TENURE (Months)
+      </label>
 
-    </div>
-
-
-    <label>TENURE (MONTHS)</label>
-
-    <input
+      <input
         type="number"
         id="tenure"
         placeholder="Example: 24"
         min="1"
+      >
+
+    </div>
+
+
+    <!-- HYPO -->
+
+    <div class="hypo">
+
+      Hypothecation: ₹500
+
+    </div>
+
+
+    <!-- CALCULATE -->
+
+    <button
+      class="calculate-btn"
+      onclick="calculateEMI()"
+    >
+      Calculate EMI
+    </button>
+
+
+    <!-- RESULT -->
+
+    <div
+      class="result"
+      id="result"
     >
 
+      <p>
+        Approx EMI
+      </p>
 
-    <button class="calculate" onclick="calculateEMI()">
-        Calculate EMI
-    </button>
+      <h2 id="emiResult">
+        ₹0
+      </h2>
 
-
-    <div class="result" id="result">
-
-        <small>
-            Approx EMI according to your CIBIL
-        </small>
-
-        <h2 id="emiAmount">
-            ₹0
-        </h2>
-
-        <button class="pdf-btn" onclick="generatePDF()">
-            📄 Download PDF
-        </button>
-
-    </div>
-
-</div>
-
-</div>
+      <p>
+        Approx EMI according to your CIBIL
+      </p>
 
 
-<!-- SIDE MENU -->
-
-<div
-    class="overlay no-print"
-    id="overlay"
-    onclick="closeMenu()">
-</div>
-
-
-<div class="side-menu no-print" id="sideMenu">
-
-    <h2>Main Menu</h2>
-
-    <p>Calculator Settings</p>
-
-
-    <div class="setting">
-
-        <label>Processing Fee</label>
-
-        <input
-            type="number"
-            id="processingFee"
-            placeholder="6000"
-        >
+      <button
+        class="pdf-btn"
+        onclick="generatePDF()"
+      >
+        Generate PDF Quotation
+      </button>
 
     </div>
 
-
-    <div class="setting">
-
-        <label>
-            Interest Rate (% per 12 months)
-        </label>
-
-        <input
-            type="number"
-            id="interestRate"
-            step="0.01"
-            placeholder="8"
-        >
-
-    </div>
-
-
-    <div class="setting">
-
-        <label>Discount</label>
-
-        <input
-            type="number"
-            id="discount"
-            placeholder="0"
-            min="0"
-        >
-
-    </div>
-
-
-    <button
-        class="save-btn"
-        onclick="saveSettings()">
-
-        Save Settings
-
-    </button>
-
-
-    <button
-        class="reset-btn"
-        onclick="resetSettings()">
-
-        Reset Settings
-
-    </button>
+  </div>
 
 </div>
 
@@ -550,26 +646,33 @@ input:focus{
 
 <div id="pdfQuotation">
 
-<div class="pdf-paper">
+  <div class="pdf-paper">
+
 
     <div class="pdf-header">
 
-        <h1>Shashi Bajaj, Bettiah</h1>
+      <h1>
+        Shashi Automobiles, Bettiah
+      </h1>
 
-        <p>Bike EMI Quotation</p>
+      <p>
+        Bike EMI Quotation
+      </p>
 
     </div>
 
 
-    <!-- BIKE NAME -->
+    <!-- BIKE -->
 
     <div class="pdf-row">
 
-        <span>Bike</span>
+      <span>
+        Bike
+      </span>
 
-        <strong id="pdfBikeName">
-            -
-        </strong>
+      <strong id="pdfBikeName">
+        -
+      </strong>
 
     </div>
 
@@ -578,24 +681,35 @@ input:focus{
 
     <div class="pdf-row">
 
-        <span>On Road Price</span>
+      <span>
+        On Road Price
+      </span>
 
-        <strong id="pdfOnRoadPrice">
-            ₹0
-        </strong>
+      <strong id="pdfOnRoadPrice">
+        ₹0
+      </strong>
 
     </div>
 
 
-    <!-- DISCOUNT -->
+    <!-- DISCOUNT
+         THIS ROW WILL BE
+         HIDDEN WHEN DISCOUNT = 0
+    -->
 
-    <div class="pdf-row">
+    <div
+      class="pdf-row"
+      id="pdfDiscountRow"
+      style="display:none;"
+    >
 
-        <span>Discount</span>
+      <span>
+        Discount
+      </span>
 
-        <strong id="pdfDiscount">
-            ₹0
-        </strong>
+      <strong id="pdfDiscount">
+        ₹0
+      </strong>
 
     </div>
 
@@ -604,11 +718,13 @@ input:focus{
 
     <div class="pdf-row">
 
-        <span>Down Payment</span>
+      <span>
+        Down Payment
+      </span>
 
-        <strong id="pdfDownPayment">
-            ₹0
-        </strong>
+      <strong id="pdfDownPayment">
+        ₹0
+      </strong>
 
     </div>
 
@@ -617,11 +733,13 @@ input:focus{
 
     <div class="pdf-row">
 
-        <span>Hypothecation</span>
+      <span>
+        Hypothecation
+      </span>
 
-        <strong>
-            ₹500
-        </strong>
+      <strong>
+        ₹500
+      </strong>
 
     </div>
 
@@ -630,11 +748,13 @@ input:focus{
 
     <div class="pdf-row">
 
-        <span>Tenure</span>
+      <span>
+        Tenure
+      </span>
 
-        <strong id="pdfTenure">
-            0 Months
-        </strong>
+      <strong id="pdfTenure">
+        0 Months
+      </strong>
 
     </div>
 
@@ -643,1157 +763,1118 @@ input:focus{
 
     <div class="pdf-emi">
 
-        <p>
-            Approx Monthly EMI
-        </p>
+      <p>
+        Approx Monthly EMI
+      </p>
 
-        <h2 id="pdfEMI">
-            ₹0
-        </h2>
+      <h2 id="pdfEMI">
+        ₹0
+      </h2>
 
     </div>
 
 
     <div class="pdf-footer">
 
-        Approx EMI according to your CIBIL
+      Approx EMI according to your CIBIL
 
     </div>
 
-</div>
+
+  </div>
 
 </div>
 
 
 <script>
 
-/* =========================================
+
+/* ==================================================
    BIKE DATABASE
-   ORIGINAL ON ROAD PRICE + ₹3000
-========================================= */
+================================================== */
 
 const bikes = {
 
-    "DY08":{
-        name:"CT 110 X ES",
-        price:80694.97+3000
-    },
-
-    "DY13":{
-        name:"CT110 X ES NXT",
-        price:91813.55+3000
-    },
-
-    "PF37":{
-        name:"Platina 100 ES",
-        price:79016.95+3000
-    },
-
-    "JK35":{
-        name:"Platina 110 Drum",
-        price:81580.23+3000
-    },
-
-    "JK38":{
-        name:"Platina 110 Drum ES NXT",
-        price:92322.24+3000
-    },
-
-    "JK39":{
-        name:"Platina 100 ES NXT",
-        price:86726.62+3000
-    },
-
-    "JK36":{
-        name:"Platina 110 Disc ABS",
-        price:91324.68+3000
-    },
-
-    "DH50":{
-        name:"Pulsar 125 Neon Disc Single Seat",
-        price:95953.85+3000
-    },
-
-    "DH65":{
-        name:"Pulsar 125 Neon Disc OBD2B",
-        price:99267.41+3000
-    },
-
-    "DH71":{
-        name:"Pulsar 125 CF Disc with LED HL and Blinkers",
-        price:111701.57+3000
-    },
-
-    "DH73":{
-        name:"Pulsar 125 Neon Disc with LED Head Lamp",
-        price:109376.12+3000
-    },
-
-    "DH70":{
-        name:"Pulsar 125 CF Disc Split Seat with LED HL and Blinkers",
-        price:114007.21+3000
-    },
-
-    "DH56":{
-        name:"Pulsar 125 Carbon Disc Split Seat UG",
-        price:105652.05+3000
-    },
-
-    "DH58":{
-        name:"Pulsar 125 CF Disc Split Seat OBD2B",
-        price:107353.65+3000
-    },
-
-    "DH57":{
-        name:"Pulsar 125 Carbon Disc Single Seat UG",
-        price:103584.25+3000
-    },
-
-    "DH62":{
-        name:"Pulsar 125 Carbon Disc OBD2B",
-        price:105094.26+3000
-    },
-
-    "JR70":{
-        name:"Pulsar 125 Standard Single Seat LCD",
-        price:112859.81+3000
-    },
-
-    "JR71":{
-        name:"Pulsar 125 Standard Split Seat TFT",
-        price:120767.67+3000
-    },
-
-    "JR72":{
-        name:"Pulsar 125 Standard Single Seat TFT",
-        price:119651.19+3000
-    },
-
-    "JR73":{
-        name:"Pulsar 125 Premium Split Seat TFT",
-        price:126319.61+3000
-    },
-
-    "DH60":{
-        name:"Pulsar 150 SD UG",
-        price:130698.76+3000
-    },
-
-    "DH59":{
-        name:"Pulsar 150 SD UG OBD2B",
-        price:131032.03+3000
-    },
-
-    "DH61":{
-        name:"Pulsar 150 TD UG",
-        price:134931.29+3000
-    },
-
-    "DH63":{
-        name:"Pulsar 150 TD UG OBD2B",
-        price:135264.56+3000
-    },
-
-    "DH68":{
-        name:"Pulsar 150 SD UG",
-        price:137830.76+3000
-    },
-
-    "DH69":{
-        name:"Pulsar 150 TD UG",
-        price:142269.92+3000
-    },
-
-    "DH72":{
-        name:"Pulsar 150 SD",
-        price:134424.74+3000
-    },
-
-    "JR67":{
-        name:"Pulsar 150 SD Standard Single Seat LCD",
-        price:139243.83+3000
-    },
-
-    "JR68":{
-        name:"Pulsar 150 TD Standard Single Seat TFT",
-        price:147095.67+3000
-    },
-
-    "JR91":{
-        name:"Pulsar 150 TD Standard Split Seat TFT",
-        price:148228.79+3000
-    },
-
-    "JR90":{
-        name:"Pulsar 150 TD Premium Split Seat TFT",
-        price:154400.96+3000
-    },
-
-    "JR38":{
-        name:"Pulsar N 150 SD Phase 2",
-        price:136051.08+3000
-    },
-
-    "JR31":{
-        name:"Pulsar N 150 TD",
-        price:139697.05+3000
-    },
-
-    "JF46":{
-        name:"Pulsar NS 125 BASE OBD2B",
-        price:114087.70+3000
-    },
-
-    "JF58":{
-        name:"Pulsar NS 125 UG OBD2B",
-        price:123693.44+3000
-    },
-
-    "JF60":{
-        name:"Pulsar NS 125 UG ABS OBD2B",
-        price:120727.13+3000
-    },
-
-    "JF57":{
-        name:"Pulsar NS 125 UG ABS",
-        price:122686.94+3000
-    },
-
-    "JF50":{
-        name:"Pulsar NS 125 UG",
-        price:111973.65+3000
-    },
-
-    "JF51":{
-        name:"Pulsar NS 125 UG",
-        price:116518.85+3000
-    },
-
-    "JF44":{
-        name:"Pulsar NS 125 UG",
-        price:119339.79+3000
-    },
-
-    "JF41":{
-        name:"Pulsar NS 160 Twin Channel ABS & USD Fork",
-        price:150129.05+3000
-    },
-
-    "JF55":{
-        name:"Pulsar NS 160 Twin Channel OBD2B",
-        price:156887.79+3000
-    },
-
-    "JF45":{
-        name:"Pulsar NS 160 UG OBD2B",
-        price:166492.64+3000
-    },
-
-    "JF43":{
-        name:"Pulsar NS 160 UG",
-        price:159307.31+3000
-    },
-
-    "JR37":{
-        name:"Pulsar N 160",
-        price:145823.20+3000
-    },
-
-    "JR45":{
-        name:"Pulsar N 160 OBD2B",
-        price:145823.20+3000
-    },
-
-    "JR82":{
-        name:"Pulsar N160 Single Seat TD SC USD Fork",
-        price:152395.31+3000
-    },
-
-    "JR83":{
-        name:"Pulsar N160 Split Seat TD DC USD Fork",
-        price:162866.66+3000
-    },
-
-    "JR75":{
-        name:"Pulsar N160 4V TD SC Single Seat USD Fork LCD",
-        price:162026.82+3000
-    },
-
-    "JR54":{
-        name:"Pulsar N160 4V TD TC Split Seat USD Fork TFT",
-        price:172144.90+3000
-    },
-
-    "JL22":{
-        name:"Pulsar NS 200 Twin Channel ABS & USD Fork",
-        price:164699.63+3000
-    },
-
-    "JL30":{
-        name:"Pulsar NS 200 Twin Channel OBD2B",
-        price:171625.00+3000
-    },
-
-    "JL24":{
-        name:"Pulsar NS 200 UG",
-        price:173564.61+3000
-    },
-
-    "JL25":{
-        name:"Pulsar NS 200 UG OBD2B",
-        price:183262.80+3000
-    },
-
-    "DT19":{
-        name:"Pulsar RS 200",
-        price:196010.86+3000
-    },
-
-    "DT22":{
-        name:"Pulsar RS 200 UG",
-        price:217973.37+3000
-    },
-
-    "JR20":{
-        name:"Pulsar N 250 UG",
-        price:165019.56+3000
-    },
-
-    "JR34":{
-        name:"Pulsar N 250 UG OBD2B",
-        price:178657.00+3000
-    },
-
-    "JR21":{
-        name:"Pulsar N 160 UG",
-        price:156574.50+3000
-    },
-
-    "JR33":{
-        name:"Pulsar N 160 UG OBD2B",
-        price:159067.36+3000
-    },
-
-    "PD36":{
-        name:"Avenger 160 Street",
-        price:141010.78+3000
-    },
-
-    "PD39":{
-        name:"Avenger 160 Street OBD2B",
-        price:141344.05+3000
-    },
-
-    "PD35":{
-        name:"Avenger 220 Cruise ABS",
-        price:169258.76+3000
-    },
-
-    "PD38":{
-        name:"Avenger 220 Cruise ABS OBD2B",
-        price:166019.39+3000
-    },
-
-    "PD40":{
-        name:"Avenger 220 Street ABS",
-        price:166019.39+3000
-    },
-
-    "JF36":{
-        name:"Dominar D 250",
-        price:207131.59+3000
-    },
-
-    "JF53":{
-        name:"Dominar D250 UG",
-        price:224075.07+3000
-    },
-
-    "JF62":{
-        name:"Dominar D 400 350cc",
-        price:248290.48+3000
-    },
-
-    "JF52":{
-        name:"Dominar D400",
-        price:293447.39+3000
-    },
-
-    "JL32":{
-        name:"Pulsar NS 400Z 350cc",
-        price:223148.58+3000
-    },
-
-    "JL28":{
-        name:"Pulsar NS 400Z UG",
-        price:241103.63+3000
-    },
-
-    "DK12":{
-        name:"Pulsar 220 F UG",
-        price:158260.84+3000
-    },
-
-    "DK13":{
-        name:"Pulsar 220 F UG OBD2B",
-        price:158614.11+3000
-    },
-
-    "DK14":{
-        name:"Pulsar 220 F UG with LED Blinker",
-        price:166032.73+3000
-    },
-
-    "DK15":{
-        name:"Pulsar 220 F LED Head Lamp",
-        price:172071.58+3000
-    },
-
-    "JR32":{
-        name:"Pulsar F 250 UG",
-        price:172918.07+3000
-    },
-
-    "DH64":{
-        name:"Pulsar 150 SD New S&G USB",
-        price:127419.38+3000
-    },
-
-    "DH66":{
-        name:"Pulsar 150 SD New S&G USB OBD2B",
-        price:127752.65+3000
-    },
-
-    "JH27":{
-        name:"Freedom 125 NG04 Disc LED",
-        price:124195.30+3000
-    },
-
-    "JH30":{
-        name:"Freedom 125 NG04 Drum LED",
-        price:107693.43+3000
-    },
-
-    "JH31":{
-        name:"Freedom 125 Drum OBD2A",
-        price:111262.00+3000
-    },
-
-    "JH36":{
-        name:"Freedom 125 Disc LED",
-        price:141508.71+3000
-    },
-
-    "JH37":{
-        name:"Freedom 125 Drum LED",
-        price:126291.58+3000
-    },
-
-    "JH38":{
-        name:"Freedom 125 Drum",
-        price:129828.26+3000
-    },
-
-    "JZ51":{
-        name:"Pulsar N125 Top",
-        price:112011.17+3000
-    },
-
-    "JZ56":{
-        name:"Pulsar N125 Top OBD2B",
-        price:112526.47+3000
-    },
-
-    "JZ53":{
-        name:"Pulsar N125 Mid",
-        price:105585.99+3000
-    },
-
-    "JR50":{
-        name:"Pulsar N 160 TD",
-        price:141750.64+3000
-    },
-
-    "JR53":{
-        name:"Pulsar N 160 TD",
-        price:145323.31+3000
-    },
-
-    "JR52":{
-        name:"Pulsar N 160 TD DC OBD2B",
-        price:148582.70+3000
-    },
-
-    "JF61":{
-        name:"Pulsar NS 125 UG ABS with Ride Modes",
-        price:128659.16+3000
-    },
-
-    "JR63":{
-        name:"Pulsar N160 TD TC with USD Fork",
-        price:148789.30+3000
-    },
-
-    "DJ16":{
-        name:"Pulsar 180",
-        price:152948.52+3000
-    }
+  "DY08": {
+    name:"CT 110 X ES",
+    price:80694.97 + 3000
+  },
+
+  "DY13": {
+    name:"CT110 X ES NXT",
+    price:91813.55 + 3000
+  },
+
+  "PF37": {
+    name:"Platina 100 ES",
+    price:79016.95 + 3000
+  },
+
+  "JK35": {
+    name:"Platina 110 Drum",
+    price:81580.23 + 3000
+  },
+
+  "JK38": {
+    name:"Platina 110 Drum ES NXT",
+    price:92322.24 + 3000
+  },
+
+  "JK39": {
+    name:"Platina 100 ES NXT",
+    price:86726.62 + 3000
+  },
+
+  "JK36": {
+    name:"Platina 110 Disc ABS",
+    price:91324.68 + 3000
+  },
+
+  "DH50": {
+    name:"Pulsar 125 Neon Disc Single Seat",
+    price:95953.85 + 3000
+  },
+
+  "DH65": {
+    name:"Pulsar 125 Neon Disc OBD2B",
+    price:99267.41 + 3000
+  },
+
+  "DH71": {
+    name:"Pulsar 125 CF Disc with LED HL and Blinkers",
+    price:111701.57 + 3000
+  },
+
+  "DH73": {
+    name:"Pulsar 125 Neon Disc with LED Head Lamp",
+    price:109376.12 + 3000
+  },
+
+  "DH70": {
+    name:"Pulsar 125 CF Disc Split Seat with LED HL and Blinkers",
+    price:114007.21 + 3000
+  },
+
+  "DH56": {
+    name:"Pulsar 125 Carbon Disc Split Seat UG",
+    price:105652.05 + 3000
+  },
+
+  "DH58": {
+    name:"Pulsar 125 CF Disc Split Seat OBD2B",
+    price:107353.65 + 3000
+  },
+
+  "DH57": {
+    name:"Pulsar 125 Carbon Disc Single Seat UG",
+    price:103584.25 + 3000
+  },
+
+  "DH62": {
+    name:"Pulsar 125 Carbon Disc OBD2B",
+    price:105094.26 + 3000
+  },
+
+  "JR70": {
+    name:"Pulsar 125 Standard Single Seat LCD",
+    price:112859.81 + 3000
+  },
+
+  "JR71": {
+    name:"Pulsar 125 Standard Split Seat TFT",
+    price:120767.67 + 3000
+  },
+
+  "JR72": {
+    name:"Pulsar 125 Standard Single Seat TFT",
+    price:119651.19 + 3000
+  },
+
+  "JR73": {
+    name:"Pulsar 125 Premium Split Seat TFT",
+    price:126319.61 + 3000
+  },
+
+  "DH60": {
+    name:"Pulsar 150 SD UG",
+    price:130698.76 + 3000
+  },
+
+  "DH59": {
+    name:"Pulsar 150 SD UG OBD2B",
+    price:131032.03 + 3000
+  },
+
+  "DH61": {
+    name:"Pulsar 150 TD UG",
+    price:134931.29 + 3000
+  },
+
+  "DH63": {
+    name:"Pulsar 150 TD UG OBD2B",
+    price:135264.56 + 3000
+  },
+
+  "DH68": {
+    name:"Pulsar 150 SD UG",
+    price:137830.76 + 3000
+  },
+
+  "DH69": {
+    name:"Pulsar 150 TD UG",
+    price:142269.92 + 3000
+  },
+
+  "DH72": {
+    name:"Pulsar 150 SD",
+    price:134424.74 + 3000
+  },
+
+  "JR67": {
+    name:"Pulsar 150 SD Standard Single Seat LCD",
+    price:139243.83 + 3000
+  },
+
+  "JR68": {
+    name:"Pulsar 150 TD Standard Single Seat TFT",
+    price:147095.67 + 3000
+  },
+
+  "JR91": {
+    name:"Pulsar 150 TD Standard Split Seat TFT",
+    price:148228.79 + 3000
+  },
+
+  "JR90": {
+    name:"Pulsar 150 TD Premium Split Seat TFT",
+    price:154400.96 + 3000
+  },
+
+  "JR38": {
+    name:"Pulsar N 150 SD Phase 2",
+    price:136051.08 + 3000
+  },
+
+  "JR31": {
+    name:"Pulsar N 150 TD",
+    price:139697.05 + 3000
+  },
+
+  "JF46": {
+    name:"Pulsar NS 125 BASE OBD2B",
+    price:114087.70 + 3000
+  },
+
+  "JF58": {
+    name:"Pulsar NS 125 UG OBD2B",
+    price:123693.44 + 3000
+  },
+
+  "JF60": {
+    name:"Pulsar NS 125 UG ABS OBD2B",
+    price:120727.13 + 3000
+  },
+
+  "JF57": {
+    name:"Pulsar NS 125 UG ABS",
+    price:122686.94 + 3000
+  },
+
+  "JF50": {
+    name:"Pulsar NS 125 UG",
+    price:111973.65 + 3000
+  },
+
+  "JF51": {
+    name:"Pulsar NS 125 UG",
+    price:116518.85 + 3000
+  },
+
+  "JF44": {
+    name:"Pulsar NS 125 UG",
+    price:119339.79 + 3000
+  },
+
+  "JF41": {
+    name:"Pulsar NS 160 Twin Channel ABS & USD Fork",
+    price:150129.05 + 3000
+  },
+
+  "JF55": {
+    name:"Pulsar NS 160 Twin Channel OBD2B",
+    price:156887.79 + 3000
+  },
+
+  "JF45": {
+    name:"Pulsar NS 160 UG OBD2B",
+    price:166492.64 + 3000
+  },
+
+  "JF43": {
+    name:"Pulsar NS 160 UG",
+    price:159307.31 + 3000
+  },
+
+  "JR37": {
+    name:"Pulsar N 160",
+    price:145823.20 + 3000
+  },
+
+  "JR45": {
+    name:"Pulsar N 160 OBD2B",
+    price:145823.20 + 3000
+  },
+
+  "JR82": {
+    name:"Pulsar N160 Single Seat TD SC USD Fork",
+    price:152395.31 + 3000
+  },
+
+  "JR83": {
+    name:"Pulsar N160 Split Seat TD DC USD Fork",
+    price:162866.66 + 3000
+  },
+
+  "JR75": {
+    name:"Pulsar N160 4V TD SC Single Seat USD Fork LCD",
+    price:162026.82 + 3000
+  },
+
+  "JR54": {
+    name:"Pulsar N160 4V TD TC Split Seat USD Fork TFT",
+    price:172144.90 + 3000
+  },
+
+  "JL22": {
+    name:"Pulsar NS 200 Twin Channel ABS & USD Fork",
+    price:164699.63 + 3000
+  },
+
+  "JL30": {
+    name:"Pulsar NS 200 Twin Channel OBD2B",
+    price:171625.00 + 3000
+  },
+
+  "JL24": {
+    name:"Pulsar NS 200 UG",
+    price:173564.61 + 3000
+  },
+
+  "JL25": {
+    name:"Pulsar NS 200 UG OBD2B",
+    price:183262.80 + 3000
+  },
+
+  "DT19": {
+    name:"Pulsar RS 200",
+    price:196010.86 + 3000
+  },
+
+  "DT22": {
+    name:"Pulsar RS 200 UG",
+    price:217973.37 + 3000
+  },
+
+  "JR20": {
+    name:"Pulsar N 250 UG",
+    price:165019.56 + 3000
+  },
+
+  "JR34": {
+    name:"Pulsar N 250 UG OBD2B",
+    price:178657.00 + 3000
+  },
+
+  "JR21": {
+    name:"Pulsar N 160 UG",
+    price:156574.50 + 3000
+  },
+
+  "JR33": {
+    name:"Pulsar N 160 UG OBD2B",
+    price:159067.36 + 3000
+  },
+
+  "PD36": {
+    name:"Avenger 160 Street",
+    price:141010.78 + 3000
+  },
+
+  "PD39": {
+    name:"Avenger 160 Street OBD2B",
+    price:141344.05 + 3000
+  },
+
+  "PD35": {
+    name:"Avenger 220 Cruise ABS",
+    price:169258.76 + 3000
+  },
+
+  "PD38": {
+    name:"Avenger 220 Cruise ABS OBD2B",
+    price:166019.39 + 3000
+  },
+
+  "PD40": {
+    name:"Avenger 220 Street ABS",
+    price:166019.39 + 3000
+  },
+
+  "JF36": {
+    name:"Dominar D 250",
+    price:207131.59 + 3000
+  },
+
+  "JF53": {
+    name:"Dominar D250 UG",
+    price:224075.07 + 3000
+  },
+
+  "JF62": {
+    name:"Dominar D 400 350cc",
+    price:248290.48 + 3000
+  },
+
+  "JF52": {
+    name:"Dominar D400",
+    price:293447.39 + 3000
+  },
+
+  "JL32": {
+    name:"Pulsar NS 400Z 350cc",
+    price:223148.58 + 3000
+  },
+
+  "JL28": {
+    name:"Pulsar NS 400Z UG",
+    price:241103.63 + 3000
+  },
+
+  "DK12": {
+    name:"Pulsar 220 F UG",
+    price:158260.84 + 3000
+  },
+
+  "DK13": {
+    name:"Pulsar 220 F UG OBD2B",
+    price:158614.11 + 3000
+  },
+
+  "DK14": {
+    name:"Pulsar 220 F UG with LED Blinker",
+    price:166032.73 + 3000
+  },
+
+  "DK15": {
+    name:"Pulsar 220 F LED Head Lamp",
+    price:172071.58 + 3000
+  },
+
+  "JR32": {
+    name:"Pulsar F 250 UG",
+    price:172918.07 + 3000
+  },
+
+  "DH64": {
+    name:"Pulsar 150 SD New S&G USB",
+    price:127419.38 + 3000
+  },
+
+  "DH66": {
+    name:"Pulsar 150 SD New S&G USB OBD2B",
+    price:127752.65 + 3000
+  },
+
+  "JH27": {
+    name:"Freedom 125 NG04 Disc LED",
+    price:124195.30 + 3000
+  },
+
+  "JH30": {
+    name:"Freedom 125 NG04 Drum LED",
+    price:107693.43 + 3000
+  },
+
+  "JH31": {
+    name:"Freedom 125 Drum OBD2A",
+    price:111262.00 + 3000
+  },
+
+  "JH36": {
+    name:"Freedom 125 Disc LED",
+    price:141508.71 + 3000
+  },
+
+  "JH37": {
+    name:"Freedom 125 Drum LED",
+    price:126291.58 + 3000
+  },
+
+  "JH38": {
+    name:"Freedom 125 Drum",
+    price:129828.26 + 3000
+  },
+
+  "JZ51": {
+    name:"Pulsar N125 Top",
+    price:112011.17 + 3000
+  },
+
+  "JZ56": {
+    name:"Pulsar N125 Top OBD2B",
+    price:112526.47 + 3000
+  },
+
+  "JZ53": {
+    name:"Pulsar N125 Mid",
+    price:105585.99 + 3000
+  },
+
+  "JR50": {
+    name:"Pulsar N 160 TD",
+    price:141750.64 + 3000
+  },
+
+  "JR53": {
+    name:"Pulsar N 160 TD",
+    price:145323.31 + 3000
+  },
+
+  "JR52": {
+    name:"Pulsar N 160 TD DC OBD2B",
+    price:148582.70 + 3000
+  },
+
+  "JF61": {
+    name:"Pulsar NS 125 UG ABS with Ride Modes",
+    price:128659.16 + 3000
+  },
+
+  "JR63": {
+    name:"Pulsar N160 TD TC with USD Fork",
+    price:148789.30 + 3000
+  },
+
+  "DJ16": {
+    name:"Pulsar 180",
+    price:152948.52 + 3000
+  }
 
 };
 
 
-/* =========================================
-   DEFAULT SETTINGS
-========================================= */
+/* ==================================================
+   CURRENT CALCULATION
+================================================== */
 
-const HYPO = 500;
-
-const DEFAULT_PROCESSING_FEE = 6000;
-
-const DEFAULT_INTEREST_RATE = 8;
-
-const DEFAULT_DISCOUNT = 0;
+let currentCalculation = null;
 
 
-/* =========================================
-   GET SETTINGS
-========================================= */
+/* ==================================================
+   SETTINGS
+================================================== */
 
 function getProcessingFee(){
 
-    const value =
-        localStorage.getItem("processingFee");
+  const value =
+    localStorage.getItem("processingFee");
 
-    return value !== null
-        ? Number(value)
-        : DEFAULT_PROCESSING_FEE;
+  return value !== null
+    ? Number(value)
+    : 6000;
 
 }
 
 
 function getInterestRate(){
 
-    const value =
-        localStorage.getItem("interestRate");
+  const value =
+    localStorage.getItem("interestRate");
 
-    return value !== null
-        ? Number(value)
-        : DEFAULT_INTEREST_RATE;
+  return value !== null
+    ? Number(value)
+    : 8;
 
 }
 
 
 function getDiscount(){
 
-    const value =
-        localStorage.getItem("discount");
+  const value =
+    localStorage.getItem("discount");
 
-    return value !== null
-        ? Number(value)
-        : DEFAULT_DISCOUNT;
+  return value !== null
+    ? Number(value)
+    : 0;
 
 }
 
 
-/* =========================================
+/* ==================================================
    MONEY FORMAT
-========================================= */
+================================================== */
 
 function money(value){
 
-    return "₹" +
-        Math.round(value)
-        .toLocaleString("en-IN");
+  return "₹" +
+    Math.round(value).toLocaleString("en-IN");
 
 }
 
 
-/* =========================================
-   FIND BIKE
-========================================= */
-
-function findBike(){
-
-    const code =
-        document.getElementById("bikeCode")
-        .value
-        .trim()
-        .toUpperCase();
-
-    const error =
-        document.getElementById("error");
-
-
-    if(!code){
-
-        document.getElementById("bikeName")
-            .innerText="";
-
-        document.getElementById("onRoadPrice")
-            .innerText="₹0";
-
-        document.getElementById("difference")
-            .innerText="₹0";
-
-        error.style.display="none";
-
-        return;
-    }
-
-
-    if(!bikes[code]){
-
-        error.innerText =
-            "Invalid Bike Code";
-
-        error.style.display="block";
-
-        document.getElementById("bikeName")
-            .innerText="";
-
-        document.getElementById("onRoadPrice")
-            .innerText="₹0";
-
-        document.getElementById("difference")
-            .innerText="₹0";
-
-        return;
-    }
-
-
-    error.style.display="none";
-
-    showBikePrice(code);
-
-}
-
-
-/* =========================================
-   SHOW BIKE PRICE
-========================================= */
-
-function showBikePrice(code){
-
-    const bike = bikes[code];
-
-    const discount =
-        getDiscount();
-
-
-    /*
-        Discount is applied here.
-    */
-
-    const finalPrice =
-        Math.max(
-            bike.price - discount,
-            0
-        );
-
-
-    document.getElementById("bikeName")
-        .innerText =
-        bike.name;
-
-
-    document.getElementById("onRoadPrice")
-        .innerText =
-        money(finalPrice);
-
-
-    updateDifference();
-
-}
-
-
-/* =========================================
-   UPDATE DIFFERENCE
-========================================= */
-
-function updateDifference(){
-
-    const priceText =
-        document.getElementById("onRoadPrice")
-        .innerText
-        .replace(/[₹,]/g,"");
-
-
-    const price =
-        Number(priceText) || 0;
-
-
-    const dp =
-        Number(
-            document.getElementById("downPayment")
-            .value
-        ) || 0;
-
-
-    const difference =
-        Math.max(
-            price - dp,
-            0
-        );
-
-
-    document.getElementById("difference")
-        .innerText =
-        money(difference);
-
-}
-
-
-/* =========================================
-   CALCULATE EMI
-========================================= */
-
-function calculateEMI(){
-
-    const code =
-        document.getElementById("bikeCode")
-        .value
-        .trim()
-        .toUpperCase();
-
-
-    const dp =
-        Number(
-            document.getElementById("downPayment")
-            .value
-        );
-
-
-    const tenure =
-        Number(
-            document.getElementById("tenure")
-            .value
-        );
-
-
-    const error =
-        document.getElementById("error");
-
-
-    if(!bikes[code]){
-
-        error.innerText =
-            "Please enter a valid Bike Code";
-
-        error.style.display="block";
-
-        return;
-    }
-
-
-    if(isNaN(dp) || dp < 0){
-
-        error.innerText =
-            "Please enter Down Payment";
-
-        error.style.display="block";
-
-        return;
-    }
-
-
-    if(!tenure || tenure <= 0){
-
-        error.innerText =
-            "Please enter Tenure in months";
-
-        error.style.display="block";
-
-        return;
-    }
-
-
-    error.style.display="none";
-
-
-    /*
-        This is already the
-        discounted final price.
-    */
-
-    const finalPriceText =
-        document.getElementById("onRoadPrice")
-        .innerText
-        .replace(/[₹,]/g,"");
-
-
-    const finalPrice =
-        Number(finalPriceText);
-
-
-    const processingFee =
-        getProcessingFee();
-
-
-    const interestRate =
-        getInterestRate() / 100;
-
-
-    /*
-        Finance Amount
-        =
-        Final Price - DP
-        + Hypo
-        + Processing Fee
-    */
-
-    const financeAmount =
-        finalPrice
-        - dp
-        + HYPO
-        + processingFee;
-
-
-    /*
-        Interest
-        =
-        Finance × Rate × Tenure/12
-    */
-
-    const interest =
-        financeAmount
-        * interestRate
-        * (tenure / 12);
-
-
-    const totalRepayment =
-        financeAmount + interest;
-
-
-    const emi =
-        totalRepayment / tenure;
-
-
-    document.getElementById("emiAmount")
-        .innerText =
-        money(emi);
-
-
-    document.getElementById("result")
-        .style.display="block";
-
-
-    /*
-        Save calculation
-        for PDF.
-    */
-
-    window.currentCalculation = {
-
-        bikeName:
-            bikes[code].name,
-
-        onRoadPrice:
-            finalPrice,
-
-        discount:
-            getDiscount(),
-
-        downPayment:
-            dp,
-
-        tenure:
-            tenure,
-
-        emi:
-            emi
-
-    };
-
-}
-
-
-/* =========================================
-   GENERATE PDF
-========================================= */
-
-function generatePDF(){
-
-    if(!window.currentCalculation){
-
-        alert(
-            "Please calculate EMI first."
-        );
-
-        return;
-    }
-
-
-    const data =
-        window.currentCalculation;
-
-
-    /*
-        Bike Name
-    */
-
-    document.getElementById("pdfBikeName")
-        .innerText =
-        data.bikeName;
-
-
-    /*
-        Final price AFTER discount
-    */
-
-    document.getElementById("pdfOnRoadPrice")
-        .innerText =
-        money(data.onRoadPrice);
-
-
-    /*
-        Discount shown separately
-    */
-
-    document.getElementById("pdfDiscount")
-        .innerText =
-        money(data.discount);
-
-
-    /*
-        Down Payment
-    */
-
-    document.getElementById("pdfDownPayment")
-        .innerText =
-        money(data.downPayment);
-
-
-    /*
-        Tenure
-    */
-
-    document.getElementById("pdfTenure")
-        .innerText =
-        data.tenure +
-        " Months";
-
-
-    /*
-        EMI
-    */
-
-    document.getElementById("pdfEMI")
-        .innerText =
-        money(data.emi);
-
-
-    /*
-        Browser print dialog
-    */
-
-    window.print();
-
-}
-
-
-/* =========================================
+/* ==================================================
    OPEN MENU
-========================================= */
+================================================== */
 
 function openMenu(){
 
-    document.getElementById("sideMenu")
-        .classList.add("open");
+  document
+    .getElementById("sideMenu")
+    .classList.add("active");
 
-    document.getElementById("overlay")
-        .classList.add("show");
+  document
+    .getElementById("overlay")
+    .classList.add("active");
+
+
+  document.getElementById("processingFee").value =
+    getProcessingFee();
+
+
+  document.getElementById("interestRate").value =
+    getInterestRate();
+
+
+  document.getElementById("discount").value =
+    getDiscount();
 
 }
 
 
-/* =========================================
+/* ==================================================
    CLOSE MENU
-========================================= */
+================================================== */
 
 function closeMenu(){
 
-    document.getElementById("sideMenu")
-        .classList.remove("open");
+  document
+    .getElementById("sideMenu")
+    .classList.remove("active");
 
-    document.getElementById("overlay")
-        .classList.remove("show");
+  document
+    .getElementById("overlay")
+    .classList.remove("active");
 
 }
 
 
-/* =========================================
+/* ==================================================
    SAVE SETTINGS
-========================================= */
+================================================== */
 
 function saveSettings(){
 
-    const processingFee =
-        Number(
-            document.getElementById("processingFee")
-            .value
-        );
+  const processingFee =
+    Number(
+      document.getElementById("processingFee").value
+    ) || 0;
 
 
-    const interestRate =
-        Number(
-            document.getElementById("interestRate")
-            .value
-        );
+  const interestRate =
+    Number(
+      document.getElementById("interestRate").value
+    ) || 0;
 
 
-    const discount =
-        Number(
-            document.getElementById("discount")
-            .value
-        );
+  const discount =
+    Number(
+      document.getElementById("discount").value
+    ) || 0;
 
 
-    localStorage.setItem(
-        "processingFee",
-        processingFee >= 0
-            ? processingFee
-            : DEFAULT_PROCESSING_FEE
-    );
+  localStorage.setItem(
+    "processingFee",
+    processingFee
+  );
 
 
-    localStorage.setItem(
-        "interestRate",
-        interestRate > 0
-            ? interestRate
-            : DEFAULT_INTEREST_RATE
-    );
+  localStorage.setItem(
+    "interestRate",
+    interestRate
+  );
 
 
-    localStorage.setItem(
-        "discount",
-        discount >= 0
-            ? discount
-            : DEFAULT_DISCOUNT
-    );
+  localStorage.setItem(
+    "discount",
+    discount
+  );
 
 
-    /*
-        Refresh price immediately
-        after discount changes.
-    */
+  /* Update price immediately */
 
-    const code =
-        document.getElementById("bikeCode")
-        .value
-        .trim()
-        .toUpperCase();
+  showBikePrice();
 
 
-    if(bikes[code]){
+  /* Recalculate if data already entered */
 
-        showBikePrice(code);
-
-    }
-
-
-    alert("Settings Saved");
-
-    closeMenu();
-
-}
+  const code =
+    document
+      .getElementById("bikeCode")
+      .value
+      .trim()
+      .toUpperCase();
 
 
-/* =========================================
-   RESET SETTINGS
-========================================= */
+  if(
+    bikes[code] &&
+    document.getElementById("downPayment").value &&
+    document.getElementById("tenure").value
+  ){
 
-function resetSettings(){
+    calculateEMI();
 
-    localStorage.removeItem(
-        "processingFee"
-    );
-
-    localStorage.removeItem(
-        "interestRate"
-    );
-
-    localStorage.removeItem(
-        "discount"
-    );
+  }
 
 
-    loadSettings();
+  alert(
+    "Settings Saved Successfully"
+  );
 
 
-    const code =
-        document.getElementById("bikeCode")
-        .value
-        .trim()
-        .toUpperCase();
-
-
-    if(bikes[code]){
-
-        showBikePrice(code);
-
-    }
-
-
-    alert("Settings Reset");
+  closeMenu();
 
 }
 
 
-/* =========================================
-   LOAD SETTINGS
-========================================= */
+/* ==================================================
+   FIND BIKE
+================================================== */
 
-function loadSettings(){
+function findBike(){
 
-    document.getElementById("processingFee")
-        .value =
-        getProcessingFee();
-
-
-    document.getElementById("interestRate")
-        .value =
-        getInterestRate();
+  const code =
+    document
+      .getElementById("bikeCode")
+      .value
+      .trim()
+      .toUpperCase();
 
 
-    document.getElementById("discount")
-        .value =
-        getDiscount();
+  document.getElementById("bikeCode").value =
+    code;
+
+
+  if(bikes[code]){
+
+    showBikePrice();
+
+  }else{
+
+    document.getElementById("onRoadPrice").value =
+      "";
+
+    document.getElementById("remainingAmount").innerText =
+      "₹0";
+
+  }
 
 }
 
 
-/* =========================================
+/* ==================================================
+   SHOW BIKE PRICE
+================================================== */
+
+function showBikePrice(){
+
+  const code =
+    document
+      .getElementById("bikeCode")
+      .value
+      .trim()
+      .toUpperCase();
+
+
+  if(!bikes[code]){
+
+    return;
+
+  }
+
+
+  const originalPrice =
+    bikes[code].price;
+
+
+  const discount =
+    getDiscount();
+
+
+  /*
+    Final price =
+    Database price - discount
+  */
+
+  const finalPrice =
+    Math.max(
+      0,
+      originalPrice - discount
+    );
+
+
+  document.getElementById("onRoadPrice").value =
+    Math.round(finalPrice);
+
+
+  updateRemaining();
+
+}
+
+
+/* ==================================================
+   UPDATE REMAINING
+================================================== */
+
+function updateRemaining(){
+
+  const price =
+    Number(
+      document.getElementById("onRoadPrice").value
+    ) || 0;
+
+
+  const dp =
+    Number(
+      document.getElementById("downPayment").value
+    ) || 0;
+
+
+  const remaining =
+    Math.max(
+      0,
+      price - dp
+    );
+
+
+  document.getElementById("remainingAmount").innerText =
+    money(remaining);
+
+}
+
+
+/* ==================================================
+   CALCULATE EMI
+================================================== */
+
+function calculateEMI(){
+
+  const code =
+    document
+      .getElementById("bikeCode")
+      .value
+      .trim()
+      .toUpperCase();
+
+
+  /* VALID BIKE CODE */
+
+  if(!bikes[code]){
+
+    alert(
+      "Please enter a valid Bike Code."
+    );
+
+    return;
+
+  }
+
+
+  const onRoadPrice =
+    Number(
+      document.getElementById("onRoadPrice").value
+    );
+
+
+  const dp =
+    Number(
+      document.getElementById("downPayment").value
+    );
+
+
+  const tenure =
+    Number(
+      document.getElementById("tenure").value
+    );
+
+
+  /* VALID DP */
+
+  if(
+    isNaN(dp) ||
+    dp < 0
+  ){
+
+    alert(
+      "Please enter Down Payment."
+    );
+
+    return;
+
+  }
+
+
+  /* VALID TENURE */
+
+  if(
+    isNaN(tenure) ||
+    tenure <= 0
+  ){
+
+    alert(
+      "Please enter valid Tenure."
+    );
+
+    return;
+
+  }
+
+
+  /* DP CANNOT BE >= PRICE */
+
+  if(dp >= onRoadPrice){
+
+    alert(
+      "Down Payment On Road Price se kam hona chahiye."
+    );
+
+    return;
+
+  }
+
+
+  /* FIXED HYPO */
+
+  const hypo = 500;
+
+
+  /* SETTINGS */
+
+  const processingFee =
+    getProcessingFee();
+
+
+  const interestRate =
+    getInterestRate() / 100;
+
+
+  /*
+    FINANCE AMOUNT
+
+    On Road Price
+    - Down Payment
+    + Hypothecation
+    + Processing Fee
+  */
+
+  const financeAmount =
+    onRoadPrice
+    - dp
+    + hypo
+    + processingFee;
+
+
+  /*
+    SIMPLE INTEREST
+
+    Finance Amount
+    × Interest Rate
+    × Tenure / 12
+  */
+
+  const interest =
+    financeAmount
+    * interestRate
+    * (tenure / 12);
+
+
+  /*
+    TOTAL REPAYMENT
+  */
+
+  const totalRepayment =
+    financeAmount + interest;
+
+
+  /*
+    MONTHLY EMI
+  */
+
+  const emi =
+    totalRepayment / tenure;
+
+
+  /* SHOW EMI */
+
+  document.getElementById("emiResult").innerText =
+    money(emi);
+
+
+  document.getElementById("result").style.display =
+    "block";
+
+
+  /* SAVE CALCULATION */
+
+  currentCalculation = {
+
+    bikeName:
+      bikes[code].name,
+
+    onRoadPrice:
+      onRoadPrice,
+
+    discount:
+      getDiscount(),
+
+    downPayment:
+      dp,
+
+    tenure:
+      tenure,
+
+    emi:
+      emi
+
+  };
+
+}
+
+
+/* ==================================================
+   GENERATE PDF
+================================================== */
+
+function generatePDF(){
+
+  if(!currentCalculation){
+
+    alert(
+      "Please calculate EMI first."
+    );
+
+    return;
+
+  }
+
+
+  const data =
+    currentCalculation;
+
+
+  /* BIKE NAME */
+
+  document.getElementById("pdfBikeName").innerText =
+    data.bikeName;
+
+
+  /* ON ROAD PRICE */
+
+  document.getElementById("pdfOnRoadPrice").innerText =
+    money(data.onRoadPrice);
+
+
+  /* DOWN PAYMENT */
+
+  document.getElementById("pdfDownPayment").innerText =
+    money(data.downPayment);
+
+
+  /* TENURE */
+
+  document.getElementById("pdfTenure").innerText =
+    data.tenure + " Months";
+
+
+  /* EMI */
+
+  document.getElementById("pdfEMI").innerText =
+    money(data.emi);
+
+
+  /*
+    ================================
+    DISCOUNT CONDITION
+    ================================
+
+    Discount > 0
+    → Show Discount row
+
+    Discount = 0
+    → Hide Discount row
+  */
+
+  const discountRow =
+    document.getElementById(
+      "pdfDiscountRow"
+    );
+
+
+  if(data.discount > 0){
+
+    document.getElementById("pdfDiscount").innerText =
+      money(data.discount);
+
+
+    discountRow.style.display =
+      "flex";
+
+  }else{
+
+    discountRow.style.display =
+      "none";
+
+  }
+
+
+  /* PRINT */
+
+  window.print();
+
+}
+
+
+/* ==================================================
    SERVICE WORKER
-========================================= */
+================================================== */
 
 if("serviceWorker" in navigator){
 
-    window.addEventListener(
-        "load",
-        function(){
+  window.addEventListener(
+    "load",
+    () => {
 
-            navigator.serviceWorker
-                .register("./service-worker.js")
-                .catch(function(error){
+      navigator.serviceWorker
+        .register("./service-worker.js")
+        .then(() => {
 
-                    console.log(
-                        "Service Worker Error:",
-                        error
-                    );
+          console.log(
+            "Service Worker Registered"
+          );
 
-                });
+        })
+        .catch(error => {
 
-        }
-    );
+          console.log(
+            "Service Worker Error:",
+            error
+          );
+
+        });
+
+    }
+  );
 
 }
-
-
-/* =========================================
-   START
-========================================= */
-
-loadSettings();
 
 </script>
 
